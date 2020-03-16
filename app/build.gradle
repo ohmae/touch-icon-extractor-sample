@@ -48,9 +48,10 @@ android {
 }
 
 dependencies {
-    implementation "net.mm2d:touchicon:0.7.1"
-    implementation "net.mm2d:touchicon-http-okhttp:0.7.1"
-    implementation "net.mm2d:touchicon-html-jsoup:0.7.1"
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "net.mm2d:touchicon:0.8.0"
+    implementation "net.mm2d:touchicon-http-okhttp:0.8.0"
+    implementation "net.mm2d:touchicon-html-jsoup:0.8.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
