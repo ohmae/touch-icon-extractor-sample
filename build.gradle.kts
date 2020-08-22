@@ -1,12 +1,11 @@
 buildscript {
-    ext.kotlin_version = "1.4.0"
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.0.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath(kotlin("gradle-plugin", version = "1.4.0"))
         classpath("com.github.ben-manes:gradle-versions-plugin:0.29.0")
     }
 }
@@ -18,6 +17,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.create("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }

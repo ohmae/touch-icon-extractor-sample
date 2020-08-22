@@ -1,13 +1,18 @@
-apply plugin: "com.android.application"
-apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
-apply plugin: "kotlin-kapt"
-apply plugin: "com.github.ben-manes.versions"
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
-def applicationName = "WebClip"
-def versionMajor = 0
-def versionMinor = 0
-def versionPatch = 2
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-android-extensions")
+    id("kotlin-kapt")
+    id("com.github.ben-manes.versions")
+}
+
+val applicationName = "WebClip"
+val versionMajor = 0
+val versionMinor = 0
+val versionPatch = 2
 
 android {
     compileSdkVersion(29)
@@ -18,7 +23,7 @@ android {
         targetSdkVersion(29)
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
-        archivesBaseName = "${applicationName}-${versionName}"
+        base.archivesBaseName = "${applicationName}-${versionName}"
         vectorDrawables.useSupportLibrary = true
     }
     compileOptions {
@@ -26,19 +31,23 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildTypes {
-        release {
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        getByName("release") {
+            isShrinkResources = true
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    applicationVariants.all { variant ->
-        if (variant.buildType.name == "release") {
-            variant.outputs.all {
-                outputFileName = "${applicationName}-${versionName}.apk"
+    applicationVariants.all {
+        if (buildType.name == "release") {
+            outputs.all {
+                (this as BaseVariantOutputImpl).outputFileName =
+                    "${applicationName}-${versionName}.apk"
             }
         }
     }
@@ -49,8 +58,8 @@ dependencies {
     implementation("net.mm2d:touchicon-http-okhttp:0.8.1")
     implementation("net.mm2d:touchicon-html-jsoup:0.8.1")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -64,14 +73,13 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 }
 
-def isStable = { String version ->
-    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
-    def regex = /^[0-9,.v-]+(-r)?$/
-    return stableKeyword || (version ==~ regex)
+fun isStable(version: String): Boolean {
+    val versionUpperCase = version.toUpperCase()
+    val hasStableKeyword = listOf("RELEASE", "FINAL", "GA").any { versionUpperCase.contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    return hasStableKeyword || regex.matches(version)
 }
 
-tasks.named("dependencyUpdates").configure {
-    rejectVersionIf {
-        !isStable(it.candidate.version)
-    }
+tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
+    rejectVersionIf { !isStable(candidate.version) }
 }
