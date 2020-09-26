@@ -19,6 +19,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import net.mm2d.webclip.dialog.IconDialog
 import net.mm2d.webclip.settings.Settings
 
 /**
@@ -32,7 +33,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpWebView()
         fab.setOnClickListener {
-            IconDialog.show(this, web_view.title, web_view.url, settings.shouldUseExtension())
+            IconDialog.show(
+                activity = this,
+                title = web_view.title ?: "",
+                siteUrl = web_view.url ?: "",
+                useExtension = settings.shouldUseExtension()
+            )
         }
         val url = extractUrlToLoad(intent)
         if (url.isNotEmpty()) {
