@@ -18,7 +18,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import net.mm2d.webclip.databinding.ActivityMainBinding
 import net.mm2d.webclip.dialog.IconDialog
 import net.mm2d.webclip.settings.Settings
 
@@ -27,29 +27,32 @@ import net.mm2d.webclip.settings.Settings
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var settings: Settings
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         settings = Settings.get()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setUpWebView()
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             IconDialog.show(
                 activity = this,
-                title = web_view.title ?: "",
-                siteUrl = web_view.url ?: "",
+                title = binding.webView.title ?: "",
+                siteUrl = binding.webView.url ?: "",
                 useExtension = settings.shouldUseExtension()
             )
         }
         val url = extractUrlToLoad(intent)
         if (url.isNotEmpty()) {
-            web_view.loadUrl(url)
+            binding.webView.loadUrl(url)
         } else {
-            web_view.loadUrl(DEFAULT_URL)
+            binding.webView.loadUrl(DEFAULT_URL)
         }
-        back_button.setOnClickListener { web_view.goBack() }
-        forward_button.setOnClickListener { web_view.goForward() }
-        reload_button.setOnClickListener { web_view.reload() }
-        settings_button.setOnClickListener {
+        binding.backButton.setOnClickListener { binding.webView.goBack() }
+        binding.forwardButton.setOnClickListener { binding.webView.goForward() }
+        binding.reloadButton.setOnClickListener { binding.webView.reload() }
+        binding.settingsButton.setOnClickListener {
             startActivity(
                 Intent(
                     this,
@@ -65,13 +68,13 @@ class MainActivity : AppCompatActivity() {
         setIntent(intent)
         val url = extractUrlToLoad(intent)
         if (url.isNotEmpty()) {
-            web_view.loadUrl(url)
+            binding.webView.loadUrl(url)
         }
     }
 
     override fun onBackPressed() {
-        if (web_view.canGoBack()) {
-            web_view.goBack()
+        if (binding.webView.canGoBack()) {
+            binding.webView.goBack()
             return
         }
         super.onBackPressed()
@@ -79,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView() {
-        web_view.settings.also {
+        binding.webView.settings.also {
             it.javaScriptEnabled = true
             it.setSupportZoom(true)
             it.builtInZoomControls = true
@@ -88,30 +91,30 @@ class MainActivity : AppCompatActivity() {
             it.loadWithOverviewMode = true
             it.domStorageEnabled = true
         }
-        web_view.webChromeClient = object : WebChromeClient() {
+        binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                progress_bar.progress = newProgress
+                binding.progressBar.progress = newProgress
             }
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
-                site_title.text = title
+                binding.siteTitle.text = title
             }
         }
-        web_view.webViewClient = object : WebViewClient() {
+        binding.webView.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                progress_bar.progress = 0
-                progress_bar.visibility = View.VISIBLE
-                site_url.text = url
+                binding.progressBar.progress = 0
+                binding.progressBar.visibility = View.VISIBLE
+                binding.siteUrl.text = url
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
-                progress_bar.visibility = View.INVISIBLE
-                site_url.text = url
-                site_title.text = view?.title
+                binding.progressBar.visibility = View.INVISIBLE
+                binding.siteUrl.text = url
+                binding.siteTitle.text = view?.title
             }
         }
-        ExtractorHolder.local.userAgent = web_view.settings.userAgentString
-        ExtractorHolder.library.userAgent = web_view.settings.userAgentString
+        ExtractorHolder.local.userAgent = binding.webView.settings.userAgentString
+        ExtractorHolder.library.userAgent = binding.webView.settings.userAgentString
     }
 
     companion object {

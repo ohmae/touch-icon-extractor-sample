@@ -4,7 +4,6 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-android-extensions")
     id("kotlin-kapt")
     id("com.github.ben-manes.versions")
 }
@@ -30,6 +29,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+    }
     buildTypes {
         getByName("release") {
             isShrinkResources = true
@@ -39,9 +44,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
     applicationVariants.all {
         if (buildType.name == "release") {
