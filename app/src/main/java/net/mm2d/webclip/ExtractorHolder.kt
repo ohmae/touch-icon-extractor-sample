@@ -8,7 +8,6 @@
 package net.mm2d.webclip
 
 import net.mm2d.touchicon.TouchIconExtractor
-import net.mm2d.touchicon.html.jsoup.JsoupAdapterFactory
 import net.mm2d.touchicon.http.okhttp.OkHttpAdapterFactory
 import net.mm2d.touchicon.http.simple.SimpleHttpClientAdapterFactory
 
@@ -20,7 +19,6 @@ object ExtractorHolder {
         httpClient = SimpleHttpClientAdapterFactory.create(WebViewCookieHandler)
     )
     val library = TouchIconExtractor(
-        httpClient = OkHttpAdapterFactory.create(OkHttpClientHolder.client),
-        htmlParser = JsoupAdapterFactory.create()
+        httpClient = OkHttpAdapterFactory.create(OkHttpClientHolder.client)
     )
 }
