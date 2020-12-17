@@ -17,6 +17,7 @@ import android.widget.CompoundButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -131,16 +132,12 @@ class IconDialog : DialogFragment() {
             useExtension: Boolean
         ) {
             IconDialog().also {
-                it.arguments =
-                    makeArgument(title, siteUrl, useExtension)
+                it.arguments = bundleOf(
+                    KEY_TITLE to title,
+                    KEY_SITE_URL to siteUrl,
+                    KEY_USE_EXTENSION to useExtension,
+                )
             }.show(activity.supportFragmentManager, "")
         }
-
-        private fun makeArgument(title: String, siteUrl: String, useExtension: Boolean): Bundle =
-            Bundle().also {
-                it.putString(KEY_TITLE, title)
-                it.putString(KEY_SITE_URL, siteUrl)
-                it.putBoolean(KEY_USE_EXTENSION, useExtension)
-            }
     }
 }
