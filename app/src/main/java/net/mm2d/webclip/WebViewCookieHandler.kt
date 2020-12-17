@@ -10,9 +10,6 @@ package net.mm2d.webclip
 import android.webkit.CookieManager
 import net.mm2d.touchicon.http.simple.CookieHandler
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 object WebViewCookieHandler : CookieHandler {
     private val cookieManager = CookieManager.getInstance()
 

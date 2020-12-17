@@ -22,9 +22,6 @@ import net.mm2d.webclip.databinding.ActivityMainBinding
 import net.mm2d.webclip.dialog.IconDialog
 import net.mm2d.webclip.settings.Settings
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 class MainActivity : AppCompatActivity() {
     private lateinit var settings: Settings
     private lateinit var binding: ActivityMainBinding

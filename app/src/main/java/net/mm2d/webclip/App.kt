@@ -11,9 +11,6 @@ import android.app.Application
 import android.webkit.WebView
 import net.mm2d.webclip.settings.Settings
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 class App : Application() {
     override fun onCreate() {
         super.onCreate()

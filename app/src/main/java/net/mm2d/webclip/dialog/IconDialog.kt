@@ -33,9 +33,6 @@ import net.mm2d.touchicon.WebAppIcon
 import net.mm2d.webclip.ExtractorHolder
 import net.mm2d.webclip.R
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 class IconDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = requireActivity()

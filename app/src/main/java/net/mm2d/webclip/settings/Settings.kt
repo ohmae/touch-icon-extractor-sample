@@ -9,9 +9,6 @@ package net.mm2d.webclip.settings
 
 import android.content.Context
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 class Settings private constructor(
     private val storage: SettingsStorage
 ) {

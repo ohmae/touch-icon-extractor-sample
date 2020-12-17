@@ -9,9 +9,6 @@ package net.mm2d.webclip.settings
 
 import net.mm2d.webclip.BuildConfig
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 internal object Maintainer {
     private const val SETTINGS_VERSION = 0
 

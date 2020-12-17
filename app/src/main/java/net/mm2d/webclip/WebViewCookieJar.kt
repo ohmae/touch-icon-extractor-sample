@@ -12,9 +12,6 @@ import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 object WebViewCookieJar : CookieJar {
     private val cookieManager = CookieManager.getInstance()
 

@@ -11,9 +11,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 class SettingsStorage(context: Context) {
     private object PreferencesHolder {
         private var preferences: SharedPreferences? = null

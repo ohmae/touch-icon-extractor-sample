@@ -9,9 +9,6 @@ package net.mm2d.webclip.settings
 
 import kotlin.reflect.KClass
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 enum class Key(
     private val type: KClass<*>? = null,
     private val defaultValue: Any? = null

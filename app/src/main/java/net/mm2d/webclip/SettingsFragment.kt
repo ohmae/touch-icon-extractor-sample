@@ -14,9 +14,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import net.mm2d.webclip.settings.Key
 
-/**
- * @author [大前良介 (OHMAE Ryosuke)](mailto:ryo@mm2d.net)
- */
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preference)
