@@ -56,8 +56,8 @@ android {
 }
 
 dependencies {
-    implementation("net.mm2d:touchicon:0.9.0")
-    implementation("net.mm2d:touchicon-http-okhttp:0.9.0")
+    implementation("net.mm2d.touchicon:touchicon:0.9.1")
+    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.1")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
@@ -66,17 +66,16 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
-    implementation("com.github.bumptech.glide:glide:4.11.0")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.11.0")
-    kapt("com.github.bumptech.glide:compiler:4.11.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 }
 
 fun isStable(version: String): Boolean {
-    val versionUpperCase = version.toUpperCase()
-    val hasStableKeyword = listOf("RELEASE", "FINAL", "GA").any { versionUpperCase.contains(it) }
+    val hasStableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     return hasStableKeyword || regex.matches(version)
 }
