@@ -7,10 +7,20 @@
 
 package net.mm2d.webclip
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 
 object OkHttpClientHolder {
-    val client: OkHttpClient = OkHttpClient.Builder()
-        .cookieJar(WebViewCookieJar)
-        .build()
+    private val networkInterceptors: MutableList<Interceptor> = mutableListOf()
+
+    val client: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .cookieJar(WebViewCookieJar)
+            .apply { networkInterceptors.forEach { addNetworkInterceptor(it) } }
+            .build()
+    }
+
+    fun addNetworkInterceptor(interceptor: Interceptor) {
+        networkInterceptors.add(interceptor)
+    }
 }
