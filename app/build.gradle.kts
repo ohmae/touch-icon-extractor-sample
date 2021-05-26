@@ -56,15 +56,15 @@ android {
 }
 
 dependencies {
-    implementation("net.mm2d.touchicon:touchicon:0.9.2")
-    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.2")
+    implementation("net.mm2d.touchicon:touchicon:0.9.3")
+    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.3")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
@@ -74,10 +74,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
-    debugImplementation("com.facebook.flipper:flipper:0.90.2")
+    debugImplementation("com.facebook.flipper:flipper:0.91.1")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.90.2")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.90.2")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.91.1")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.91.1")
 }
 
 fun isStable(version: String): Boolean {
