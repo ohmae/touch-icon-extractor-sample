@@ -74,10 +74,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
-    debugImplementation("com.facebook.flipper:flipper:0.91.1")
+    debugImplementation("com.facebook.flipper:flipper:0.92.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.91.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.91.1")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.92.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.92.0")
 }
 
 fun isStable(version: String): Boolean {
