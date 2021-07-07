@@ -66,7 +66,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("com.google.android.material:material:1.3.0")
+    implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation("com.github.bumptech.glide:glide:4.12.0")
@@ -74,10 +74,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
-    debugImplementation("com.facebook.flipper:flipper:0.95.0")
+    debugImplementation("com.facebook.flipper:flipper:0.96.1")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.95.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.95.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.96.1")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.96.1")
 }
 
 fun isStable(version: String): Boolean {
