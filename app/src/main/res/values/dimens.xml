@@ -6,5 +6,4 @@
     <dimen name="margin_large">16dp</dimen>
     <dimen name="text_title">16sp</dimen>
     <dimen name="text_url">12sp</dimen>
-    <dimen name="text_menu">14sp</dimen>
 </resources>
