@@ -10,6 +10,7 @@ package net.mm2d.webclip
 import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -18,6 +19,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import net.mm2d.webclip.databinding.ActivityMainBinding
 import net.mm2d.webclip.dialog.IconDialog
 import net.mm2d.webclip.settings.Settings
@@ -87,6 +90,17 @@ class MainActivity : AppCompatActivity() {
             it.useWideViewPort = true
             it.loadWithOverviewMode = true
             it.domStorageEnabled = true
+
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                val nightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+                val forceDarkMode = if (nightMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
+                WebSettingsCompat.setForceDark(it, forceDarkMode)
+            }
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+                WebSettingsCompat.setForceDarkStrategy(
+                    it, WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
+                )
+            }
         }
         binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {

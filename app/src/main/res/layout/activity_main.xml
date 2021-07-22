@@ -45,10 +45,9 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/background"
+        android:background="?android:attr/windowBackground"
         android:clickable="true"
         android:orientation="vertical"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         tools:ignore="KeyboardInaccessibleWidget,Overdraw"
         >
 
@@ -102,8 +101,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/margin_large"
             android:text="@string/back_button"
-            android:textColor="@color/text"
-            android:textSize="@dimen/text_menu"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:drawableStartCompat="@drawable/ic_back"
             />
 
@@ -116,8 +114,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/margin_large"
             android:text="@string/forward_button"
-            android:textColor="@color/text"
-            android:textSize="@dimen/text_menu"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:drawableStartCompat="@drawable/ic_forward"
             />
 
@@ -130,8 +127,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/margin_large"
             android:text="@string/reload_button"
-            android:textColor="@color/text"
-            android:textSize="@dimen/text_menu"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:drawableStartCompat="@drawable/ic_reload"
             />
 
@@ -144,8 +140,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/margin_large"
             android:text="@string/settings"
-            android:textColor="@color/text"
-            android:textSize="@dimen/text_menu"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:drawableStartCompat="@drawable/ic_settings"
             />
     </LinearLayout>

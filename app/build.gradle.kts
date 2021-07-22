@@ -26,6 +26,7 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -56,16 +57,18 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("net.mm2d.touchicon:touchicon:0.9.3")
     implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.3")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.preference:preference-ktx:1.1.1")
+    implementation("androidx.webkit:webkit:1.4.0")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
@@ -74,14 +77,15 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
-    debugImplementation("com.facebook.flipper:flipper:0.96.1")
+    debugImplementation("com.facebook.flipper:flipper:0.98.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.1")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.96.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.96.1")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.98.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.98.0")
 }
 
 fun isStable(version: String): Boolean {
-    val hasStableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val hasStableKeyword =
+        listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     return hasStableKeyword || regex.matches(version)
 }

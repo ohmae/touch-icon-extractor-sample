@@ -13,8 +13,7 @@
         android:layout_margin="8dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/text"
-        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
