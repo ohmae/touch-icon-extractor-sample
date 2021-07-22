@@ -15,10 +15,12 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.webkit.URLUtil
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import net.mm2d.webclip.databinding.ActivityMainBinding
@@ -60,6 +62,17 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+        binding.goButton.setOnClickListener {
+            val text = binding.editUrl.text.toString()
+            if (text.isEmpty()) return@setOnClickListener
+            if (URLUtil.isNetworkUrl(text)) {
+                binding.webView.loadUrl(text)
+            } else {
+                binding.webView.loadUrl("https://www.google.com/search?q=$text")
+            }
+            binding.editUrl.setText("")
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -92,8 +105,10 @@ class MainActivity : AppCompatActivity() {
             it.domStorageEnabled = true
 
             if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                val nightMode = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-                val forceDarkMode = if (nightMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
+                val nightMode =
+                    (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+                val forceDarkMode =
+                    if (nightMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
                 WebSettingsCompat.setForceDark(it, forceDarkMode)
             }
             if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {

@@ -86,6 +86,24 @@
 
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/edit_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/url_hint"
+            android:inputType="textUri"
+            android:autofillHints=""
+            />
+
+        <Button
+            android:id="@+id/go_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/go"
+            android:layout_marginEnd="8dp"
+            />
+
         <androidx.legacy.widget.Space
             android:layout_width="wrap_content"
             android:layout_height="0dp"

@@ -6,6 +6,8 @@
     <string name="forward_button">進む</string>
     <string name="reload_button">再読み込み</string>
     <string name="settings">設定</string>
+    <string name="url_hint">URLを入力</string>
+    <string name="go">Go</string>
 
     <string name="pref_title_use_extension">拡張ライブラリを使用</string>
     <string name="pref_title_copyright">作者</string>

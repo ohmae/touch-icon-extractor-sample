@@ -6,6 +6,8 @@
     <string name="forward_button">Forward</string>
     <string name="reload_button">Reload</string>
     <string name="settings">Settings</string>
+    <string name="url_hint">input URL</string>
+    <string name="go">Go</string>
 
     <string name="pref_title_use_extension">Use extension library</string>
     <string name="pref_title_copyright">Author</string>
