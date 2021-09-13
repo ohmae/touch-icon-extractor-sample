@@ -10,6 +10,7 @@ package net.mm2d.webclip.dialog
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +24,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import net.mm2d.touchicon.Icon
 import net.mm2d.touchicon.PageIcon
 import net.mm2d.touchicon.WebAppIcon
@@ -34,6 +32,7 @@ import net.mm2d.webclip.ExtractorHolder
 import net.mm2d.webclip.R
 
 class IconDialog : DialogFragment() {
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = requireActivity()
         val arguments = requireArguments()
@@ -60,13 +59,13 @@ class IconDialog : DialogFragment() {
         )
         val adapter = IconListAdapter(activity, view.findViewById(R.id.transparent_switch))
         recyclerView.adapter = adapter
-        GlobalScope.launch(Dispatchers.Main) {
+        scope.launch {
             withContext(Dispatchers.IO) {
                 extractor.fromPage(siteUrl, true)
             }.let { adapter.add(it) }
             progressBar.visibility = View.GONE
         }
-        GlobalScope.launch(Dispatchers.Main) {
+        scope.launch {
             withContext(Dispatchers.IO) {
                 extractor.listFromDomain(siteUrl, true, listOf("120x120"))
             }.let { adapter.add(it) }
@@ -76,6 +75,11 @@ class IconDialog : DialogFragment() {
             .setTitle(title)
             .setView(view)
             .create()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        scope.cancel()
     }
 
     private inner class IconListAdapter(
