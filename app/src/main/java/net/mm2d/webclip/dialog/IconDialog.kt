@@ -15,8 +15,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -29,7 +27,7 @@ import net.mm2d.touchicon.Icon
 import net.mm2d.touchicon.PageIcon
 import net.mm2d.touchicon.WebAppIcon
 import net.mm2d.webclip.ExtractorHolder
-import net.mm2d.webclip.R
+import net.mm2d.webclip.databinding.DialogIconBinding
 
 class IconDialog : DialogFragment() {
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
@@ -39,37 +37,31 @@ class IconDialog : DialogFragment() {
         val title = arguments.getString(KEY_TITLE)!!
         val siteUrl = arguments.getString(KEY_SITE_URL)!!
         val useExtension = arguments.getBoolean(KEY_USE_EXTENSION)
-        val view = activity.layoutInflater.inflate(
-            R.layout.dialog_icon,
-            activity.window.decorView as ViewGroup,
-            false
-        )
+        val binding = DialogIconBinding.inflate(activity.layoutInflater)
         val extractor =
             if (useExtension) ExtractorHolder.library
             else ExtractorHolder.local
-        view.findViewById<TextView>(R.id.site_url).text = siteUrl
-        val progressBar: ProgressBar = view.findViewById(R.id.progress_bar)
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.addItemDecoration(
+        binding.siteUrl.text = siteUrl
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
                 activity,
                 DividerItemDecoration.VERTICAL
             )
         )
-        val adapter = IconListAdapter(activity, view.findViewById(R.id.transparent_switch))
-        recyclerView.adapter = adapter
+        val adapter = IconListAdapter(activity, binding.transparentSwitch)
+        binding.recyclerView.adapter = adapter
         scope.launch {
             withContext(Dispatchers.IO) {
                 extractor.fromPage(siteUrl, true)
             }.let { adapter.add(it) }
-            progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
         scope.launch {
             withContext(Dispatchers.IO) {
                 extractor.listFromDomain(siteUrl, true, listOf("120x120"))
             }.let { adapter.add(it) }
-            progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
         return AlertDialog.Builder(activity)
             .setTitle(title)
@@ -82,6 +74,7 @@ class IconDialog : DialogFragment() {
         scope.cancel()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private inner class IconListAdapter(
         private val context: Context,
         private val transparentSwitch: CompoundButton
