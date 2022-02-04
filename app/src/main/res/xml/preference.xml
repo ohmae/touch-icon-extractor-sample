@@ -28,12 +28,26 @@
         android:summary="@string/pref_message_source_code"
         android:title="@string/pref_title_source_code"
         app:iconSpaceReserved="false"
-        />
+        >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/ohmae/touch-icon-extractor"
+            android:targetClass="net.mm2d.webclip.MainActivity"
+            android:targetPackage="net.mm2d.webclip"
+            />
+    </Preference>
 
     <Preference
         android:key="LICENSE"
         android:summary="@string/pref_message_license"
         android:title="@string/pref_title_license"
         app:iconSpaceReserved="false"
-        />
+        >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="file:///android_asset/license.html"
+            android:targetClass="net.mm2d.webclip.MainActivity"
+            android:targetPackage="net.mm2d.webclip"
+            />
+    </Preference>
 </PreferenceScreen>

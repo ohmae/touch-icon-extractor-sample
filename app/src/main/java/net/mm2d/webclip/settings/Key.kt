@@ -13,12 +13,6 @@ enum class Key(
     private val type: KClass<*>? = null,
     private val defaultValue: Any? = null
 ) {
-    VERSION_NUMBER,
-    PLAY_STORE,
-    PRIVACY_POLICY,
-    COPYRIGHT,
-    LICENSE,
-    SOURCE_CODE,
     SETTINGS_VERSION(
         Int::class, -1
     ),
