@@ -12,14 +12,19 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
 import android.webkit.WebView
-import net.mm2d.webclip.settings.Settings
+import dagger.hilt.android.HiltAndroidApp
+import net.mm2d.webclip.settings.SettingsRepository
+import javax.inject.Inject
 
+@HiltAndroidApp
 @Suppress("unused")
 open class App : Application() {
+    @Inject
+    lateinit var settingsRepository: SettingsRepository
+
     override fun onCreate() {
         super.onCreate()
         initializeOverrideWhenDebug()
-        Settings.initialize(this)
         WebView.setWebContentsDebuggingEnabled(true)
     }
 

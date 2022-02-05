@@ -3,17 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-    <SwitchPreference
+    <SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="USE_EXTENSION"
         android:title="@string/pref_title_use_extension"
         app:iconSpaceReserved="false"
+        app:persistent="false"
         />
 
     <Preference
         android:key="VERSION_NUMBER"
         android:title="@string/pref_title_version_number"
         app:iconSpaceReserved="false"
+        app:persistent="false"
         />
 
     <Preference
@@ -21,6 +23,7 @@
         android:summary="@string/pref_message_copyright"
         android:title="@string/pref_title_copyright"
         app:iconSpaceReserved="false"
+        app:persistent="false"
         />
 
     <Preference
@@ -28,6 +31,7 @@
         android:summary="@string/pref_message_source_code"
         android:title="@string/pref_title_source_code"
         app:iconSpaceReserved="false"
+        app:persistent="false"
         >
         <intent
             android:action="android.intent.action.VIEW"
@@ -42,6 +46,7 @@
         android:summary="@string/pref_message_license"
         android:title="@string/pref_title_license"
         app:iconSpaceReserved="false"
+        app:persistent="false"
         >
         <intent
             android:action="android.intent.action.VIEW"

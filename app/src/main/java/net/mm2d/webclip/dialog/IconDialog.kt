@@ -65,7 +65,7 @@ class IconDialog : DialogFragment() {
         }
         return AlertDialog.Builder(activity)
             .setTitle(title)
-            .setView(view)
+            .setView(binding.root)
             .create()
     }
 
