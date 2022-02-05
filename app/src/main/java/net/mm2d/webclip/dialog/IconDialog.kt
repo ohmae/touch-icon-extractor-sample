@@ -10,7 +10,6 @@ package net.mm2d.webclip.dialog
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +18,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import net.mm2d.touchicon.Icon
 import net.mm2d.touchicon.PageIcon
 import net.mm2d.touchicon.WebAppIcon
@@ -30,7 +32,6 @@ import net.mm2d.webclip.ExtractorHolder
 import net.mm2d.webclip.databinding.DialogIconBinding
 
 class IconDialog : DialogFragment() {
-    private val scope = CoroutineScope(Job() + Dispatchers.Main)
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = requireActivity()
         val arguments = requireArguments()
@@ -51,13 +52,13 @@ class IconDialog : DialogFragment() {
         )
         val adapter = IconListAdapter(activity, binding.transparentSwitch)
         binding.recyclerView.adapter = adapter
-        scope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 extractor.fromPage(siteUrl, true)
             }.let { adapter.add(it) }
             binding.progressBar.visibility = View.GONE
         }
-        scope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 extractor.listFromDomain(siteUrl, true, listOf("120x120"))
             }.let { adapter.add(it) }
@@ -67,11 +68,6 @@ class IconDialog : DialogFragment() {
             .setTitle(title)
             .setView(binding.root)
             .create()
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        scope.cancel()
     }
 
     @SuppressLint("NotifyDataSetChanged")
