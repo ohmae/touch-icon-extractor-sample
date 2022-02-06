@@ -23,7 +23,7 @@ class UserSettingsRepository(
         .map {
             UserSettings(
                 useExtension = it[USE_EXTENSION] ?: false,
-                showTransparentGrid = it[TRANSPARENT_GRID] ?: false,
+                showTransparentGrid = it[TRANSPARENT_GRID] ?: true,
             )
         }
 

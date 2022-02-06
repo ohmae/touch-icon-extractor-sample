@@ -29,6 +29,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.mm2d.touchicon.Icon
@@ -54,14 +56,8 @@ class IconDialog : DialogFragment() {
         val activity = requireActivity()
         val arguments = requireArguments()
         val title = arguments.getString(KEY_TITLE)!!
-        val siteUrl = arguments.getString(KEY_SITE_URL)!!
-        val useExtension = arguments.getBoolean(KEY_USE_EXTENSION)
-        val showTransparentGrid = arguments.getBoolean(KEY_TRANSPARENT_GRID)
         val binding = DialogIconBinding.inflate(layoutInflater)
-        val extractor =
-            if (useExtension) ExtractorHolder.library
-            else ExtractorHolder.local
-        binding.siteUrl.text = siteUrl
+        binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -69,8 +65,25 @@ class IconDialog : DialogFragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        binding.transparentSwitch.isChecked = showTransparentGrid
-        val adapter = IconListAdapter(activity, showTransparentGrid, ::onMoreClick)
+        lifecycleScope.launch {
+            settingsRepository.userSettingsRepository.flow.take(1).collectLatest {
+                onUserSetting(binding, it)
+            }
+        }
+        return AlertDialog.Builder(activity)
+            .setTitle(title)
+            .setView(binding.root)
+            .create()
+    }
+
+    private fun onUserSetting(binding: DialogIconBinding, userSettings: UserSettings) {
+        val activity = requireActivity()
+        binding.transparentSwitch.isChecked = userSettings.showTransparentGrid
+        val extractor =
+            if (userSettings.useExtension) ExtractorHolder.library
+            else ExtractorHolder.local
+
+        val adapter = IconListAdapter(activity, userSettings.showTransparentGrid, ::onMoreClick)
         binding.transparentSwitch.setOnCheckedChangeListener { _, isChecked ->
             lifecycleScope.launch {
                 settingsRepository.userSettingsRepository.updateTrans(isChecked)
@@ -78,6 +91,9 @@ class IconDialog : DialogFragment() {
             adapter.showTransparentGrid = isChecked
         }
         binding.recyclerView.adapter = adapter
+
+        val siteUrl = requireArguments().getString(KEY_SITE_URL)!!
+        binding.siteUrl.text = siteUrl
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 extractor.fromPage(siteUrl, true)
@@ -90,10 +106,6 @@ class IconDialog : DialogFragment() {
             }.let { adapter.add(it) }
             binding.progressBar.visibility = View.GONE
         }
-        return AlertDialog.Builder(activity)
-            .setTitle(title)
-            .setView(binding.root)
-            .create()
     }
 
     private fun onMoreClick(view: View, icon: Icon) {
@@ -174,22 +186,17 @@ class IconDialog : DialogFragment() {
     companion object {
         private const val KEY_TITLE = "KEY_TITLE"
         private const val KEY_SITE_URL = "KEY_SITE_URL"
-        private const val KEY_USE_EXTENSION = "KEY_USE_EXTENSION"
-        private const val KEY_TRANSPARENT_GRID = "KEY_TRANSPARENT_GRID"
         private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
         fun show(
             activity: FragmentActivity,
             title: String,
             siteUrl: String,
-            userSettings: UserSettings,
         ) {
             IconDialog().also {
                 it.arguments = bundleOf(
                     KEY_TITLE to title,
                     KEY_SITE_URL to siteUrl,
-                    KEY_USE_EXTENSION to userSettings.useExtension,
-                    KEY_TRANSPARENT_GRID to userSettings.showTransparentGrid,
                 )
             }.show(activity.supportFragmentManager, "")
         }

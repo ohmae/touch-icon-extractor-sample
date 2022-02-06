@@ -21,25 +21,15 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenResumed
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.launch
 import net.mm2d.webclip.databinding.ActivityMainBinding
 import net.mm2d.webclip.dialog.IconDialog
-import net.mm2d.webclip.settings.SettingsRepository
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
-    @Inject
-    lateinit var settingsRepository: SettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,20 +37,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpWebView()
         binding.fab.setOnClickListener {
-            lifecycleScope.launch {
-                whenResumed {
-                    settingsRepository.userSettingsRepository
-                        .flow.take(1)
-                        .collectLatest {
-                            IconDialog.show(
-                                activity = this@MainActivity,
-                                title = binding.webView.title ?: "",
-                                siteUrl = binding.webView.url ?: "",
-                                userSettings = it
-                            )
-                        }
-                }
-            }
+            IconDialog.show(
+                activity = this@MainActivity,
+                title = binding.webView.title ?: "",
+                siteUrl = binding.webView.url ?: "",
+            )
         }
         val url = extractUrlToLoad(intent)
         if (url.isNotEmpty()) {
