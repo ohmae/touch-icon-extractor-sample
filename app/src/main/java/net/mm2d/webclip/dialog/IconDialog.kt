@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,11 +35,18 @@ import net.mm2d.touchicon.Icon
 import net.mm2d.webclip.ExtractorHolder
 import net.mm2d.webclip.R
 import net.mm2d.webclip.databinding.DialogIconBinding
+import net.mm2d.webclip.settings.SettingsRepository
+import net.mm2d.webclip.settings.UserSettings
 import net.mm2d.webclip.util.Downloader
 import net.mm2d.webclip.util.Toaster
 import net.mm2d.webclip.util.registerForActivityResultWrapper
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class IconDialog : DialogFragment() {
+    @Inject
+    lateinit var settingsRepository: SettingsRepository
+
     private val launcher =
         registerForActivityResultWrapper(RequestPermission(), PERMISSION, ::onPermissionResult)
 
@@ -48,6 +56,7 @@ class IconDialog : DialogFragment() {
         val title = arguments.getString(KEY_TITLE)!!
         val siteUrl = arguments.getString(KEY_SITE_URL)!!
         val useExtension = arguments.getBoolean(KEY_USE_EXTENSION)
+        val showTransparentGrid = arguments.getBoolean(KEY_TRANSPARENT_GRID)
         val binding = DialogIconBinding.inflate(layoutInflater)
         val extractor =
             if (useExtension) ExtractorHolder.library
@@ -60,7 +69,14 @@ class IconDialog : DialogFragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        val adapter = IconListAdapter(activity, binding.transparentSwitch, ::onMoreClick)
+        binding.transparentSwitch.isChecked = showTransparentGrid
+        val adapter = IconListAdapter(activity, showTransparentGrid, ::onMoreClick)
+        binding.transparentSwitch.setOnCheckedChangeListener { _, isChecked ->
+            lifecycleScope.launch {
+                settingsRepository.userSettingsRepository.updateTrans(isChecked)
+            }
+            adapter.showTransparentGrid = isChecked
+        }
         binding.recyclerView.adapter = adapter
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -132,7 +148,7 @@ class IconDialog : DialogFragment() {
                 launcher.launch()
             }
         }
-        lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
+        lifecycleScope.launch(CoroutineExceptionHandler { _, _ ->
             Toaster.show(context, R.string.toast_download_failed)
         }) {
             withContext(Dispatchers.IO) {
@@ -159,19 +175,21 @@ class IconDialog : DialogFragment() {
         private const val KEY_TITLE = "KEY_TITLE"
         private const val KEY_SITE_URL = "KEY_SITE_URL"
         private const val KEY_USE_EXTENSION = "KEY_USE_EXTENSION"
+        private const val KEY_TRANSPARENT_GRID = "KEY_TRANSPARENT_GRID"
         private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
         fun show(
             activity: FragmentActivity,
             title: String,
             siteUrl: String,
-            useExtension: Boolean
+            userSettings: UserSettings,
         ) {
             IconDialog().also {
                 it.arguments = bundleOf(
                     KEY_TITLE to title,
                     KEY_SITE_URL to siteUrl,
-                    KEY_USE_EXTENSION to useExtension,
+                    KEY_USE_EXTENSION to userSettings.useExtension,
+                    KEY_TRANSPARENT_GRID to userSettings.showTransparentGrid,
                 )
             }.show(activity.supportFragmentManager, "")
         }

@@ -22,7 +22,8 @@ class UserSettingsRepository(
     val flow: Flow<UserSettings> = context.dataStoreField.data
         .map {
             UserSettings(
-                useExtension = it[USE_EXTENSION] ?: false
+                useExtension = it[USE_EXTENSION] ?: false,
+                showTransparentGrid = it[TRANSPARENT_GRID] ?: false,
             )
         }
 
@@ -30,6 +31,14 @@ class UserSettingsRepository(
         context.dataStoreField.updateData { preferences ->
             preferences.edit {
                 it[USE_EXTENSION] = value
+            }
+        }
+    }
+
+    suspend fun updateTrans(value: Boolean) {
+        context.dataStoreField.updateData { preferences ->
+            preferences.edit {
+                it[TRANSPARENT_GRID] = value
             }
         }
     }
@@ -89,5 +98,7 @@ class UserSettingsRepository(
             Key.User.DATA_VERSION_INT.intKey()
         private val USE_EXTENSION =
             Key.User.USE_EXTENSION_BOOLEAN.booleanKey()
+        private val TRANSPARENT_GRID =
+            Key.User.TRANSPARENT_GRID_BOOLEAN.booleanKey()
     }
 }

@@ -38,7 +38,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     switch.isChecked = it.useExtension
                 }
             }
-            switch.setOnPreferenceChangeListener { preference, newValue ->
+            switch.setOnPreferenceChangeListener { _, newValue ->
                 viewLifecycleOwner.lifecycleScope.launch {
                     settingsRepository.userSettingsRepository.updateUseExtension(newValue as Boolean)
                 }

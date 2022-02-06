@@ -30,6 +30,7 @@ interface Key {
     enum class User : Key {
         DATA_VERSION_INT,
         USE_EXTENSION_BOOLEAN,
+        TRANSPARENT_GRID_BOOLEAN,
     }
 }
 

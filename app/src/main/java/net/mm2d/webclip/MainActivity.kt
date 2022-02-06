@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                                 activity = this@MainActivity,
                                 title = binding.webView.title ?: "",
                                 siteUrl = binding.webView.url ?: "",
-                                useExtension = it.useExtension
+                                userSettings = it
                             )
                         }
                 }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import net.mm2d.touchicon.Icon
 import net.mm2d.touchicon.PageIcon
@@ -13,16 +12,15 @@ import net.mm2d.touchicon.WebAppIcon
 @SuppressLint("NotifyDataSetChanged")
 class IconListAdapter(
     private val context: Context,
-    private val transparentSwitch: CompoundButton,
+    showTransparentGrid: Boolean,
     private val onMoreClick: (View, Icon) -> Unit,
 ) : RecyclerView.Adapter<IconViewHolder>() {
-    private val list: MutableList<Icon> = mutableListOf()
-
-    init {
-        transparentSwitch.setOnCheckedChangeListener { _, _ ->
+    var showTransparentGrid: Boolean = showTransparentGrid
+        set(value) {
+            field = value
             notifyDataSetChanged()
         }
-    }
+    private val list: MutableList<Icon> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, type: Int): IconViewHolder =
         when (type) {
@@ -47,6 +45,6 @@ class IconListAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
-        holder.apply(list[position], transparentSwitch.isChecked)
+        holder.apply(list[position], showTransparentGrid)
     }
 }
