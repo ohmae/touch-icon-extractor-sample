@@ -13,7 +13,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -134,13 +133,11 @@ class IconDialog : DialogFragment() {
             }
         }
         lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
-            Log.e("XXXX", "download: $throwable")
             Toaster.show(context, R.string.toast_download_failed)
         }) {
             withContext(Dispatchers.IO) {
                 Downloader.download(context, icon)
             }.let {
-                Log.e("XXXX", "download: $it")
                 Toaster.show(
                     context,
                     if (it) R.string.toast_download_saved else R.string.toast_download_failed
