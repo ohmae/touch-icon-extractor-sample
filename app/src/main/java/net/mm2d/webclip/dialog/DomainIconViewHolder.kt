@@ -10,6 +10,7 @@ package net.mm2d.webclip.dialog
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.request.target.Target
 import net.mm2d.touchicon.Icon
@@ -18,7 +19,8 @@ import net.mm2d.webclip.databinding.ItemDomainIconBinding
 
 @SuppressLint("SetTextI18n")
 class DomainIconViewHolder(
-    private val binding: ItemDomainIconBinding
+    private val binding: ItemDomainIconBinding,
+    private val onMoreClick: (View, Icon) -> Unit,
 ) : IconViewHolder(binding.root) {
     override fun apply(icon: Icon, transparent: Boolean) {
         binding.icon.setBackgroundResource(
@@ -29,6 +31,9 @@ class DomainIconViewHolder(
         binding.length.text = icon.length.toString()
         binding.type.text = icon.mimeType
         binding.url.text = icon.url
+        binding.iconMore.setOnClickListener {
+            onMoreClick(it, icon)
+        }
         GlideApp.with(itemView)
             .load(icon.url)
             .override(Target.SIZE_ORIGINAL)
@@ -39,9 +44,14 @@ class DomainIconViewHolder(
     }
 
     companion object {
-        fun create(context: Context, parent: ViewGroup): DomainIconViewHolder =
+        fun create(
+            context: Context,
+            parent: ViewGroup,
+            onMoreClick: (View, Icon) -> Unit
+        ): DomainIconViewHolder =
             DomainIconViewHolder(
-                ItemDomainIconBinding.inflate(LayoutInflater.from(context), parent, false)
+                ItemDomainIconBinding.inflate(LayoutInflater.from(context), parent, false),
+                onMoreClick,
             )
     }
 }

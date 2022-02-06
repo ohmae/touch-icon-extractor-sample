@@ -15,6 +15,7 @@
         <item name="colorStrongText">@color/blue_a700</item>
         <item name="colorNormalText">@color/black</item>
         <item name="alertDialogTheme">@style/Theme.App.Dialog</item>
+        <item name="colorIcon">@color/gray_900</item>
     </style>
 
     <style name="Theme.App.NoActionBar">

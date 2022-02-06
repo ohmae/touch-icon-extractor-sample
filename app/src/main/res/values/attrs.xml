@@ -3,5 +3,6 @@
     <declare-styleable name="TextAttrs">
         <attr name="colorStrongText" format="color" />
         <attr name="colorNormalText" format="color" />
+        <attr name="colorIcon" format="color" />
     </declare-styleable>
 </resources>

@@ -14,7 +14,6 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.webkit.URLUtil
 import android.webkit.WebChromeClient
@@ -38,6 +37,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     @Inject
     lateinit var settingsRepository: SettingsRepository
 
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                     settingsRepository.userSettingsRepository
                         .flow.take(1)
                         .collectLatest {
-                            Log.e("XXX", "show: ${it.useExtension}")
                             IconDialog.show(
                                 activity = this@MainActivity,
                                 title = binding.webView.title ?: "",

@@ -8,6 +8,20 @@
     <string name="settings">設定</string>
     <string name="url_hint">URLを入力</string>
     <string name="go">Go</string>
+    <string name="app_info">アプリ情報</string>
+    <string name="cancel">キャンセル</string>
+
+    <string name="download">ダウンロード</string>
+    <string name="open_in_other_app">他のアプリで開く</string>
+    <string name="toast_download_failed">ダウンロードに失敗しました</string>
+    <string name="toast_download_saved">保存しました</string>
+    <string name="toast_failed_to_open">開けませんでした</string>
+
+    <string name="toast_success_to_grant_storage_permission">ストレージアクセスが許可されました。再実行してください</string>
+    <string name="toast_fail_to_grant_storage_permission">ダウンロードするにはストレージアクセス許可が必要です</string>
+
+    <string name="dialog_permission_title">権限の許可が必要</string>
+    <string name="dialog_microphone_permission_message">ストレージへのアクセス権がありません。\nダウンロードするには「アプリ情報」から許可してください</string>
 
     <string name="pref_title_use_extension">拡張ライブラリを使用</string>
     <string name="pref_title_copyright">作者</string>

@@ -7,38 +7,49 @@
 
 package net.mm2d.webclip.dialog
 
-import android.annotation.SuppressLint
+import android.Manifest
 import android.app.Dialog
-import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.CompoundButton
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.ListPopupWindow
+import androidx.core.app.ActivityCompat
+import androidx.core.content.PermissionChecker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.mm2d.touchicon.Icon
-import net.mm2d.touchicon.PageIcon
-import net.mm2d.touchicon.WebAppIcon
 import net.mm2d.webclip.ExtractorHolder
+import net.mm2d.webclip.R
 import net.mm2d.webclip.databinding.DialogIconBinding
+import net.mm2d.webclip.util.Downloader
+import net.mm2d.webclip.util.Toaster
+import net.mm2d.webclip.util.registerForActivityResultWrapper
 
 class IconDialog : DialogFragment() {
+    private val launcher =
+        registerForActivityResultWrapper(RequestPermission(), PERMISSION, ::onPermissionResult)
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = requireActivity()
         val arguments = requireArguments()
         val title = arguments.getString(KEY_TITLE)!!
         val siteUrl = arguments.getString(KEY_SITE_URL)!!
         val useExtension = arguments.getBoolean(KEY_USE_EXTENSION)
-        val binding = DialogIconBinding.inflate(activity.layoutInflater)
+        val binding = DialogIconBinding.inflate(layoutInflater)
         val extractor =
             if (useExtension) ExtractorHolder.library
             else ExtractorHolder.local
@@ -50,15 +61,15 @@ class IconDialog : DialogFragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        val adapter = IconListAdapter(activity, binding.transparentSwitch)
+        val adapter = IconListAdapter(activity, binding.transparentSwitch, ::onMoreClick)
         binding.recyclerView.adapter = adapter
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 extractor.fromPage(siteUrl, true)
             }.let { adapter.add(it) }
             binding.progressBar.visibility = View.GONE
         }
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 extractor.listFromDomain(siteUrl, true, listOf("120x120"))
             }.let { adapter.add(it) }
@@ -70,43 +81,80 @@ class IconDialog : DialogFragment() {
             .create()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private inner class IconListAdapter(
-        private val context: Context,
-        private val transparentSwitch: CompoundButton
-    ) : RecyclerView.Adapter<IconViewHolder>() {
-        private val list: MutableList<Icon> = mutableListOf()
+    private fun onMoreClick(view: View, icon: Icon) {
+        val context = requireContext()
+        ListPopupWindow(context).also {
+            it.setDropDownGravity(Gravity.END)
+            it.anchorView = view
+            it.width = resources.getDimensionPixelSize(R.dimen.menu_width)
+            it.verticalOffset = -view.height
+            it.horizontalOffset = resources.getDimensionPixelSize(R.dimen.menu_horizontal_offset)
+            val adapter = MenuAdapter(context)
+            adapter.add(R.drawable.ic_download to R.string.download)
+            adapter.add(R.drawable.ic_open_in_browser to R.string.open_in_other_app)
+            it.setAdapter(adapter)
+            it.setOnItemClickListener { _, _, _, id ->
+                when (id.toInt()) {
+                    R.string.download -> {
+                        download(icon)
+                    }
+                    R.string.open_in_other_app -> {
+                        open(icon)
+                    }
+                }
+                it.dismiss()
+            }
+        }.show()
+    }
 
-        init {
-            transparentSwitch.setOnCheckedChangeListener { _, _ ->
-                notifyDataSetChanged()
+    private fun onPermissionResult(granted: Boolean) {
+        val activity = requireActivity()
+        when {
+            granted -> {
+                Toaster.show(activity, R.string.toast_success_to_grant_storage_permission)
+            }
+            !ActivityCompat.shouldShowRequestPermissionRationale(activity, PERMISSION) -> {
+                PermissionDialog.show(activity)
+            }
+            else -> {
+                Toaster.show(activity, R.string.toast_fail_to_grant_storage_permission)
             }
         }
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, type: Int): IconViewHolder =
-            when (type) {
-                0 -> PageIconViewHolder.create(context, parent)
-                1 -> WebAppIconViewHolder.create(context, parent)
-                else -> DomainIconViewHolder.create(context, parent)
+    private fun download(icon: Icon) {
+        val context = requireContext()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
+        ) {
+            if (PermissionChecker.checkSelfPermission(context, PERMISSION) !=
+                PermissionChecker.PERMISSION_GRANTED
+            ) {
+                launcher.launch()
             }
-
-        fun add(icons: List<Icon>) {
-            val positionStart = list.size
-            list.addAll(icons)
-            notifyItemRangeInserted(positionStart, icons.size)
         }
-
-        override fun getItemViewType(position: Int): Int = when (list[position]) {
-            is PageIcon -> 0
-            is WebAppIcon -> 1
-            else -> 2
+        lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
+            Log.e("XXXX", "download: $throwable")
+            Toaster.show(context, R.string.toast_download_failed)
+        }) {
+            withContext(Dispatchers.IO) {
+                Downloader.download(context, icon)
+            }.let {
+                Log.e("XXXX", "download: $it")
+                Toaster.show(
+                    context,
+                    if (it) R.string.toast_download_saved else R.string.toast_download_failed
+                )
+            }
         }
+    }
 
-        override fun getItemCount(): Int = list.size
-
-        @SuppressLint("SetTextI18n")
-        override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
-            holder.apply(list[position], transparentSwitch.isChecked)
+    private fun open(icon: Icon) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(icon.url)))
+        } catch (e: Exception) {
+            val context = requireContext()
+            Toaster.show(context, R.string.toast_failed_to_open)
         }
     }
 
@@ -114,6 +162,7 @@ class IconDialog : DialogFragment() {
         private const val KEY_TITLE = "KEY_TITLE"
         private const val KEY_SITE_URL = "KEY_SITE_URL"
         private const val KEY_USE_EXTENSION = "KEY_USE_EXTENSION"
+        private const val PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
 
         fun show(
             activity: FragmentActivity,
