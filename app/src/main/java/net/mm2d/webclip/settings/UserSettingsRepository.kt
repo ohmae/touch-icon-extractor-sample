@@ -12,14 +12,16 @@ import java.io.File
 import java.io.IOException
 
 class UserSettingsRepository(
-    private val context: Context
+    context: Context
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.USER,
         migrations = listOf(DataStructureMigration(context))
     )
+    private val dataStore: DataStore<Preferences> = context.dataStoreField
 
-    val flow: Flow<UserSettings> = context.dataStoreField.data
+    val flow: Flow<UserSettings> = dataStore.data
+        .onErrorResumeEmpty()
         .map {
             UserSettings(
                 useExtension = it[USE_EXTENSION] ?: false,
@@ -28,7 +30,7 @@ class UserSettingsRepository(
         }
 
     suspend fun updateUseExtension(value: Boolean) {
-        context.dataStoreField.updateData { preferences ->
+        dataStore.updateData { preferences ->
             preferences.edit {
                 it[USE_EXTENSION] = value
             }
@@ -36,7 +38,7 @@ class UserSettingsRepository(
     }
 
     suspend fun updateTrans(value: Boolean) {
-        context.dataStoreField.updateData { preferences ->
+        dataStore.updateData { preferences ->
             preferences.edit {
                 it[TRANSPARENT_GRID] = value
             }
