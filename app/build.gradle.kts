@@ -73,8 +73,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.4.0")
     implementation("com.google.android.material:material:1.5.0")
-    implementation("com.google.dagger:hilt-android:2.40.5")
-    kapt("com.google.dagger:hilt-android-compiler:2.40.5")
+    implementation("com.google.dagger:hilt-android:2.41")
+    kapt("com.google.dagger:hilt-android-compiler:2.41")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.github.bumptech.glide:glide:4.12.0")
@@ -82,10 +82,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.12.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
-    debugImplementation("com.facebook.flipper:flipper:0.131.0")
+    debugImplementation("com.facebook.flipper:flipper:0.135.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.131.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.131.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.135.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.135.0")
 }
 
 fun isStable(version: String): Boolean {
