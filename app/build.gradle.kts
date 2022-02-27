@@ -77,9 +77,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.41")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.12.0")
-    kapt("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.13.1")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.13.1")
+    kapt("com.github.bumptech.glide:compiler:4.13.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
     debugImplementation("com.facebook.flipper:flipper:0.136.0")
