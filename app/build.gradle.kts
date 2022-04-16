@@ -3,8 +3,8 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
+    kotlin("android")
+    kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.github.ben-manes.versions")
 }
@@ -64,8 +64,8 @@ dependencies {
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.3")
@@ -82,10 +82,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.13.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
-    debugImplementation("com.facebook.flipper:flipper:0.136.0")
+    debugImplementation("com.facebook.flipper:flipper:0.142.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.136.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.136.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.142.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.142.0")
 }
 
 fun isStable(version: String): Boolean {
