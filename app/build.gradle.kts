@@ -7,6 +7,8 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id("com.github.ben-manes.versions")
+
+    // for release
 }
 
 val applicationName = "WebClip"
@@ -81,11 +83,13 @@ dependencies {
     implementation("com.github.bumptech.glide:okhttp3-integration:4.13.1")
     kapt("com.github.bumptech.glide:compiler:4.13.1")
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
-    debugImplementation("com.facebook.flipper:flipper:0.142.0")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+    debugImplementation("com.facebook.flipper:flipper:0.144.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.142.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.142.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.144.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.144.0")
+
+    // for release
 }
 
 fun isStable(version: String): Boolean {
