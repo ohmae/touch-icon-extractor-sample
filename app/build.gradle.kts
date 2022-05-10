@@ -19,6 +19,7 @@ val versionPatch = 1
 android {
     compileSdk = 31
 
+    namespace = "net.mm2d.webclip"
     defaultConfig {
         applicationId = "net.mm2d.webclip"
         minSdk = 21
@@ -74,20 +75,20 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.4.0")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("com.google.dagger:hilt-android:2.41")
-    kapt("com.google.dagger:hilt-android-compiler:2.41")
+    implementation("com.google.android.material:material:1.6.0")
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("com.google.dagger:hilt-android-compiler:2.42")
 
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("com.github.bumptech.glide:glide:4.13.1")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.13.1")
-    kapt("com.github.bumptech.glide:compiler:4.13.1")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.13.2")
+    kapt("com.github.bumptech.glide:compiler:4.13.2")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
-    debugImplementation("com.facebook.flipper:flipper:0.144.0")
+    debugImplementation("com.facebook.flipper:flipper:0.145.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.144.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.144.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.145.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.145.0")
 
     // for release
 }
