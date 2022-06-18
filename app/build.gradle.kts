@@ -72,8 +72,8 @@ android {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
-    implementation("net.mm2d.touchicon:touchicon:0.9.3")
-    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.3")
+    implementation("net.mm2d.touchicon:touchicon:0.9.5")
+    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.5")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
@@ -89,16 +89,16 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.42")
     kapt("com.google.dagger:hilt-android-compiler:2.42")
 
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.github.bumptech.glide:glide:4.13.2")
     implementation("com.github.bumptech.glide:okhttp3-integration:4.13.2")
     kapt("com.github.bumptech.glide:compiler:4.13.2")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
-    debugImplementation("com.facebook.flipper:flipper:0.148.0")
+    debugImplementation("com.facebook.flipper:flipper:0.150.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.148.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.148.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.150.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.150.0")
 
     // for release
 }
