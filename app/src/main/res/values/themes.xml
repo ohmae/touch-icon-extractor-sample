@@ -23,7 +23,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="colorPrimary">?attr/colorPrimaryVariant</item>
+    </style>
 
     <style name="Theme.App.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 

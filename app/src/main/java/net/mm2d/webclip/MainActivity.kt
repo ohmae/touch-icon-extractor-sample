@@ -15,10 +15,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.webkit.URLUtil
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.webkit.WebSettingsCompat
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 siteUrl = binding.webView.url ?: "",
             )
         }
-        val url = extractUrlToLoad(intent)
+        val url = savedInstanceState?.getString(KEY_URL) ?: extractUrlToLoad(intent)
         if (url.isNotEmpty()) {
             binding.webView.loadUrl(url)
         } else {
@@ -88,6 +85,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_URL, binding.webView.url)
+    }
+
     override fun onBackPressed() {
         if (binding.webView.canGoBack()) {
             binding.webView.goBack()
@@ -101,6 +103,21 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun applyDarkTheme(webSettings: WebSettings) {
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+            val nightMode =
+                (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+            val forceDarkMode =
+                if (nightMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
+            WebSettingsCompat.setForceDark(webSettings, forceDarkMode)
+        }
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+            WebSettingsCompat.setForceDarkStrategy(
+                webSettings, WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
+            )
+        }
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView() {
         binding.webView.settings.also {
@@ -111,19 +128,7 @@ class MainActivity : AppCompatActivity() {
             it.useWideViewPort = true
             it.loadWithOverviewMode = true
             it.domStorageEnabled = true
-
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                val nightMode =
-                    (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-                val forceDarkMode =
-                    if (nightMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
-                WebSettingsCompat.setForceDark(it, forceDarkMode)
-            }
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
-                WebSettingsCompat.setForceDarkStrategy(
-                    it, WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
-                )
-            }
+            applyDarkTheme(it)
         }
         binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -132,7 +137,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 binding.siteTitle.text = title
-                binding.toolbar.title = title
+                supportActionBar?.title = title
             }
         }
         binding.webView.webViewClient = object : WebViewClient() {
@@ -158,6 +163,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val KEY_URL = "KEY_URL"
         private const val DEFAULT_URL = "https://www.google.com/"
         private const val YAHOO_SEARCH_URL = "https://search.yahoo.co.jp/search?ei=UTF-8"
         private const val YAHOO_SEARCH_QUERY_KEY = "p"
