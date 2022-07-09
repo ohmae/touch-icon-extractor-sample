@@ -52,7 +52,6 @@ android {
         }
     }
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -71,14 +70,13 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
     implementation("net.mm2d.touchicon:touchicon:0.9.5")
     implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.5")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -95,10 +93,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.13.2")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
-    debugImplementation("com.facebook.flipper:flipper:0.150.0")
-    debugImplementation("com.facebook.soloader:soloader:0.10.3")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.150.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.150.0")
+    debugImplementation("com.facebook.flipper:flipper:0.153.0")
+    debugImplementation("com.facebook.soloader:soloader:0.10.4")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.153.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.153.0")
 
     // for release
 }
