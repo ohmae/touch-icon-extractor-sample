@@ -70,8 +70,8 @@ android {
 }
 
 dependencies {
-    implementation("net.mm2d.touchicon:touchicon:0.9.5")
-    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.5")
+    implementation("net.mm2d.touchicon:touchicon:0.9.6")
+    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.6")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
