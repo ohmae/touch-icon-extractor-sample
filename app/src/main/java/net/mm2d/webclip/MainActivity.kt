@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
         setUpWebView()
         binding.fab.setOnClickListener {
             IconDialog.show(
@@ -91,6 +96,11 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        binding.drawerLayout.openDrawer(GravityCompat.START)
+        return true
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView() {
         binding.webView.settings.also {
@@ -122,6 +132,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onReceivedTitle(view: WebView?, title: String?) {
                 binding.siteTitle.text = title
+                binding.toolbar.title = title
             }
         }
         binding.webView.webViewClient = object : WebViewClient() {
@@ -129,12 +140,17 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.progress = 0
                 binding.progressBar.visibility = View.VISIBLE
                 binding.siteUrl.text = url
+                supportActionBar?.subtitle = url
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 binding.progressBar.visibility = View.INVISIBLE
                 binding.siteUrl.text = url
                 binding.siteTitle.text = view?.title
+                supportActionBar?.let {
+                    it.title = view?.title
+                    it.subtitle = url
+                }
             }
         }
         ExtractorHolder.local.userAgent = binding.webView.settings.userAgentString

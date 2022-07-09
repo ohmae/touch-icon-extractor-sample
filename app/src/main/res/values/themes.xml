@@ -23,6 +23,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+
+    <style name="Theme.App.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
     <style name="Theme.App.Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">@color/blue_a700</item>
         <item name="colorSecondary">@color/blue_a700</item>
