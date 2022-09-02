@@ -57,16 +57,21 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.webView.loadUrl(DEFAULT_URL)
         }
-        binding.backButton.setOnClickListener { binding.webView.goBack() }
-        binding.forwardButton.setOnClickListener { binding.webView.goForward() }
-        binding.reloadButton.setOnClickListener { binding.webView.reload() }
+        binding.backButton.setOnClickListener {
+            binding.webView.goBack()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+        binding.forwardButton.setOnClickListener {
+            binding.webView.goForward()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+        binding.reloadButton.setOnClickListener {
+            binding.webView.reload()
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
         binding.settingsButton.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    SettingsActivity::class.java
-                )
-            )
+            startActivity(Intent(this, SettingsActivity::class.java))
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
         binding.goButton.setOnClickListener {
             val text = binding.editUrl.text.toString()
