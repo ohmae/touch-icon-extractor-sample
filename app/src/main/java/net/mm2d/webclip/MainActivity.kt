@@ -10,7 +10,6 @@ package net.mm2d.webclip
 import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -19,8 +18,6 @@ import android.webkit.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.webkit.WebSettingsCompat
-import androidx.webkit.WebViewFeature
 import dagger.hilt.android.AndroidEntryPoint
 import net.mm2d.webclip.databinding.ActivityMainBinding
 import net.mm2d.webclip.dialog.IconDialog
@@ -28,11 +25,12 @@ import net.mm2d.webclip.dialog.IconDialog
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {
-            binding.webView.goBack()
+    private val onBackPressedCallback: OnBackPressedCallback =
+        object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                binding.webView.goBack()
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,21 +105,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun applyDarkTheme(webSettings: WebSettings) {
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-            val nightMode =
-                (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-            val forceDarkMode =
-                if (nightMode) WebSettingsCompat.FORCE_DARK_ON else WebSettingsCompat.FORCE_DARK_OFF
-            WebSettingsCompat.setForceDark(webSettings, forceDarkMode)
-        }
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
-            WebSettingsCompat.setForceDarkStrategy(
-                webSettings, WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
-            )
-        }
-    }
-
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebView() {
         binding.webView.settings.also {
@@ -132,7 +115,6 @@ class MainActivity : AppCompatActivity() {
             it.useWideViewPort = true
             it.loadWithOverviewMode = true
             it.domStorageEnabled = true
-            applyDarkTheme(it)
         }
         binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
