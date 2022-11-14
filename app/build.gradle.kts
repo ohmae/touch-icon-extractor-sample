@@ -85,19 +85,19 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.5.0")
     implementation("com.google.android.material:material:1.7.0")
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.44.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.44.1")
 
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.github.bumptech.glide:glide:4.14.2")
     implementation("com.github.bumptech.glide:okhttp3-integration:4.14.2")
     kapt("com.github.bumptech.glide:compiler:4.14.2")
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
-    debugImplementation("com.facebook.flipper:flipper:0.173.0")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
+    debugImplementation("com.facebook.flipper:flipper:0.174.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.4")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.173.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.173.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.174.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.174.0")
 
     // for release
 }
