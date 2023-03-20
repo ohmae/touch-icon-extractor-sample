@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
     implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.6.0")
@@ -89,15 +89,15 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.45")
 
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("com.github.bumptech.glide:glide:4.15.0")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.0")
-    kapt("com.github.bumptech.glide:compiler:4.15.0")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
-    debugImplementation("com.facebook.flipper:flipper:0.182.0")
+    debugImplementation("com.facebook.flipper:flipper:0.186.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.182.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.182.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.186.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.186.0")
 
     // for release
 }
