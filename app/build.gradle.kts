@@ -51,6 +51,9 @@ android {
             )
         }
     }
+    kotlin {
+        jvmToolchain(11)
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -94,10 +97,10 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.15.1")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
-    debugImplementation("com.facebook.flipper:flipper:0.187.1")
+    debugImplementation("com.facebook.flipper:flipper:0.189.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.187.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.187.1")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.189.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.189.0")
 
     // for release
 }
