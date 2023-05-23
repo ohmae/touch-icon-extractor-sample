@@ -26,7 +26,6 @@ import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPl
 import com.facebook.soloader.SoLoader
 import leakcanary.LeakCanary
 
-@Suppress("unused")
 class DebugApp : App() {
     override fun initializeOverrideWhenDebug() {
         setUpStrictMode()

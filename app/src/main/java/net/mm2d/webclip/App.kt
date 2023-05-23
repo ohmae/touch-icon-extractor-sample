@@ -17,7 +17,6 @@ import net.mm2d.webclip.settings.SettingsRepository
 import javax.inject.Inject
 
 @HiltAndroidApp
-@Suppress("unused")
 open class App : Application() {
     @Inject
     lateinit var settingsRepository: SettingsRepository

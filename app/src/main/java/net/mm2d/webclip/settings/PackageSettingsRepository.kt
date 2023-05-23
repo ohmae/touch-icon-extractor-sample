@@ -23,12 +23,12 @@ class PackageSettingsRepository(
     val flow: Flow<PackageSetting> = dataStore.data
         .onErrorResumeEmpty()
         .map {
-        PackageSetting(
-            versionAtInstall = it[VERSION_AT_INSTALL] ?: 0,
-            versionAtLastLaunched = it[VERSION_AT_LAST_LAUNCHED] ?: 0,
-            versionBeforeUpdate = it[VERSION_BEFORE_UPDATE] ?: 0
-        )
-    }
+            PackageSetting(
+                versionAtInstall = it[VERSION_AT_INSTALL] ?: 0,
+                versionAtLastLaunched = it[VERSION_AT_LAST_LAUNCHED] ?: 0,
+                versionBeforeUpdate = it[VERSION_BEFORE_UPDATE] ?: 0
+            )
+        }
 
     private class DataStructureMigration : DataMigration<Preferences> {
         override suspend fun shouldMigrate(currentData: Preferences): Boolean =

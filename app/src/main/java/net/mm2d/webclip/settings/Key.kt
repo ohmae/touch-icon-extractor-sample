@@ -85,15 +85,19 @@ internal fun Enum<*>.checkSuffix(value: KClass<*>) {
         Boolean::class -> require(name.endsWith(SUFFIX_BOOLEAN)) {
             "$this is used for Boolean, suffix \"$SUFFIX_BOOLEAN\" is required."
         }
+
         Int::class -> require(name.endsWith(SUFFIX_INT)) {
             "$this is used for Int, suffix \"$SUFFIX_INT\" is required."
         }
+
         Long::class -> require(name.endsWith(SUFFIX_LONG)) {
             "$this is used for Long, suffix \"$SUFFIX_LONG\" is required."
         }
+
         Float::class -> require(name.endsWith(SUFFIX_FLOAT)) {
             "$this is used for Float, suffix \"$SUFFIX_FLOAT\" is required."
         }
+
         String::class -> require(name.endsWith(SUFFIX_STRING)) {
             "$this is used for String, suffix \"$SUFFIX_STRING\" is required."
         }

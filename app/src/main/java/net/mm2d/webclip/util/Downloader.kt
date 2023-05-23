@@ -11,7 +11,6 @@ import okhttp3.Request
 import java.io.FileOutputStream
 
 object Downloader {
-    @Suppress("BlockingMethodInNonBlockingContext")
     fun download(context: Context, icon: Icon): Boolean {
         val result = OkHttpClientHolder.client.newCall(
             Request.Builder().url(icon.url).build()

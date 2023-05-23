@@ -125,6 +125,7 @@ class IconDialog : DialogFragment() {
                     R.string.download -> {
                         download(icon)
                     }
+
                     R.string.open_in_other_app -> {
                         open(icon)
                     }
@@ -140,9 +141,11 @@ class IconDialog : DialogFragment() {
             granted -> {
                 Toaster.show(activity, R.string.toast_success_to_grant_storage_permission)
             }
+
             !ActivityCompat.shouldShowRequestPermissionRationale(activity, PERMISSION) -> {
                 PermissionDialog.show(activity)
             }
+
             else -> {
                 Toaster.show(activity, R.string.toast_fail_to_grant_storage_permission)
             }

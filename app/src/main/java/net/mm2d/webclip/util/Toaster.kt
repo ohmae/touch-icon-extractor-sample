@@ -8,8 +8,4 @@ object Toaster {
     fun show(context: Context, @StringRes resId: Int) {
         Toast.makeText(context, resId, Toast.LENGTH_LONG).show()
     }
-
-    fun show(context: Context, text: CharSequence) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
-    }
 }

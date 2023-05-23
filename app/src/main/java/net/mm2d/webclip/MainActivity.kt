@@ -161,12 +161,14 @@ class MainActivity : AppCompatActivity() {
         private fun extractUrlToLoad(intent: Intent): String = when (intent.action) {
             Intent.ACTION_VIEW ->
                 intent.data?.toString() ?: ""
+
             Intent.ACTION_SEARCH, Intent.ACTION_WEB_SEARCH ->
                 makeSearchUrl(
                     intent.getStringExtra(
                         SearchManager.QUERY
                     ) ?: ""
                 )
+
             else ->
                 ""
         }
