@@ -6,7 +6,7 @@
     <string name="forward_button">進む</string>
     <string name="reload_button">再読み込み</string>
     <string name="settings">設定</string>
-    <string name="url_hint">URLを入力</string>
+    <string name="url_hint">URLまたは検索ワードを入力</string>
     <string name="go">Go</string>
     <string name="app_info">アプリ情報</string>
     <string name="cancel">キャンセル</string>

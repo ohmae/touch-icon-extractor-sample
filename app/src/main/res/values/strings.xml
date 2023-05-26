@@ -6,7 +6,7 @@
     <string name="forward_button">Forward</string>
     <string name="reload_button">Reload</string>
     <string name="settings">Settings</string>
-    <string name="url_hint">input URL</string>
+    <string name="url_hint">input URL or search word</string>
     <string name="go">Go</string>
     <string name="app_info">App info</string>
     <string name="cancel">Cancel</string>

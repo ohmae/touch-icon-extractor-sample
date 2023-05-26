@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             if (URLUtil.isNetworkUrl(text)) {
                 binding.webView.loadUrl(text)
             } else {
-                binding.webView.loadUrl("https://www.google.com/search?q=$text")
+                binding.webView.loadUrl(makeSearchUrl(text))
             }
             binding.editUrl.setText("")
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -154,9 +154,9 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_URL = "KEY_URL"
-        private const val DEFAULT_URL = "https://www.google.com/"
-        private const val YAHOO_SEARCH_URL = "https://search.yahoo.co.jp/search?ei=UTF-8"
-        private const val YAHOO_SEARCH_QUERY_KEY = "p"
+        private const val DEFAULT_URL = "https://www.bing.com/"
+        private const val SEARCH_URL = "https://www.bing.com/search"
+        private const val SEARCH_QUERY_KEY = "q"
 
         private fun extractUrlToLoad(intent: Intent): String = when (intent.action) {
             Intent.ACTION_VIEW ->
@@ -173,9 +173,9 @@ class MainActivity : AppCompatActivity() {
                 ""
         }
 
-        private fun makeSearchUrl(query: String): String = Uri.parse(YAHOO_SEARCH_URL)
+        private fun makeSearchUrl(query: String): String = Uri.parse(SEARCH_URL)
             .buildUpon()
-            .appendQueryParameter(YAHOO_SEARCH_QUERY_KEY, query)
+            .appendQueryParameter(SEARCH_QUERY_KEY, query)
             .build()
             .toString()
     }
