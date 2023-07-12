@@ -78,8 +78,8 @@ dependencies {
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -92,15 +92,13 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.1")
-    kapt("com.github.bumptech.glide:compiler:4.15.1")
+    implementation("io.coil-kt:coil:2.4.0")
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.11")
-    debugImplementation("com.facebook.flipper:flipper:0.191.1")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
+    debugImplementation("com.facebook.flipper:flipper:0.201.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.191.1")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.191.1")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.201.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.201.0")
 
     // for release
 }

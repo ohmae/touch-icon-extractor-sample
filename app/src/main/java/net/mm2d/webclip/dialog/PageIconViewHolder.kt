@@ -12,9 +12,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.request.target.Target
+import coil.imageLoader
+import coil.request.ImageRequest
 import net.mm2d.touchicon.Icon
-import net.mm2d.webclip.GlideApp
 import net.mm2d.webclip.databinding.ItemPageIconBinding
 
 @SuppressLint("SetTextI18n")
@@ -41,13 +41,16 @@ class PageIconViewHolder(
             "(uncertain)"
         }
         binding.imageSize.text = inferSize
-        GlideApp.with(itemView)
-            .load(icon.url)
-            .override(Target.SIZE_ORIGINAL)
-            .addListener(bitmapHook {
-                binding.imageSize.text = "${it.width}x${it.height} $inferSize"
-            })
-            .into(binding.icon)
+
+        val context = binding.root.context
+        val request = ImageRequest.Builder(context)
+            .data(icon.url)
+            .target {
+                binding.imageSize.text = "${it.intrinsicWidth}x${it.intrinsicHeight}"
+                binding.icon.setImageDrawable(it)
+            }
+            .build()
+        context.imageLoader.enqueue(request)
     }
 
     companion object {
