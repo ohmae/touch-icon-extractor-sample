@@ -88,8 +88,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.7.0")
     implementation("com.google.android.material:material:1.9.0")
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation("com.google.dagger:hilt-android:2.47")
+    kapt("com.google.dagger:hilt-android-compiler:2.47")
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("io.coil-kt:coil:2.4.0")
