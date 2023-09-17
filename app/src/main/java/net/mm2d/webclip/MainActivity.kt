@@ -49,11 +49,15 @@ class MainActivity : AppCompatActivity() {
                 siteUrl = binding.webView.url ?: "",
             )
         }
-        val url = savedInstanceState?.getString(KEY_URL) ?: extractUrlToLoad(intent)
-        if (url.isNotEmpty()) {
-            binding.webView.loadUrl(url)
+        if (savedInstanceState == null) {
+            val url = extractUrlToLoad(intent)
+            if (url.isNotEmpty()) {
+                binding.webView.loadUrl(url)
+            } else {
+                binding.webView.loadUrl(DEFAULT_URL)
+            }
         } else {
-            binding.webView.loadUrl(DEFAULT_URL)
+            binding.webView.restoreState(savedInstanceState)
         }
         binding.backButton.setOnClickListener {
             binding.webView.goBack()
@@ -97,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(KEY_URL, binding.webView.url)
+        binding.webView.saveState(outState)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -153,7 +157,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val KEY_URL = "KEY_URL"
         private const val DEFAULT_URL = "https://www.bing.com/"
         private const val SEARCH_URL = "https://www.bing.com/search"
         private const val SEARCH_QUERY_KEY = "q"

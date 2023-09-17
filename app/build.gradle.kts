@@ -3,8 +3,8 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
     id("dagger.hilt.android.plugin")
     id("com.github.ben-manes.versions")
 
@@ -17,7 +17,7 @@ val versionMinor = 4
 val versionPatch = 4
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     namespace = "net.mm2d.webclip"
     defaultConfig {
@@ -73,31 +73,31 @@ android {
 }
 
 dependencies {
-    implementation("net.mm2d.touchicon:touchicon:0.9.6")
-    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.6")
+    implementation("net.mm2d.touchicon:touchicon:0.9.7")
+    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.7")
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.webkit:webkit:1.7.0")
+    implementation("androidx.webkit:webkit:1.8.0")
     implementation("com.google.android.material:material:1.9.0")
-    implementation("com.google.dagger:hilt-android:2.47")
-    kapt("com.google.dagger:hilt-android-compiler:2.47")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("io.coil-kt:coil:2.4.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
-    debugImplementation("com.facebook.flipper:flipper:0.201.0")
+    debugImplementation("com.facebook.flipper:flipper:0.219.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.201.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.201.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.219.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.219.0")
 
     // for release
 }
