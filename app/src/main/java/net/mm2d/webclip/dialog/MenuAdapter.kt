@@ -28,9 +28,11 @@ class MenuAdapter(context: Context) : BaseAdapter() {
         inflater: LayoutInflater,
         position: Int,
         convertView: View?,
-        parent: ViewGroup
-    ): View = (convertView?.let { ItemMenuBinding.bind(it) }
-        ?: ItemMenuBinding.inflate(inflater, parent, false)).also {
+        parent: ViewGroup,
+    ): View = (
+        convertView?.let { ItemMenuBinding.bind(it) }
+            ?: ItemMenuBinding.inflate(inflater, parent, false)
+        ).also {
         val item = getItem(position)
         it.icon.setImageResource(item.first)
         it.text.setText(item.second)

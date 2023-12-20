@@ -24,7 +24,7 @@ class PageIconViewHolder(
 ) : IconViewHolder(binding.root) {
     override fun apply(icon: Icon, transparent: Boolean) {
         binding.icon.setBackgroundResource(
-            selectBackground(transparent)
+            selectBackground(transparent),
         )
         itemView.tag = icon
         binding.sizes.text = icon.sizes
@@ -57,7 +57,7 @@ class PageIconViewHolder(
         fun create(
             context: Context,
             parent: ViewGroup,
-            onMoreClick: (View, Icon) -> Unit
+            onMoreClick: (View, Icon) -> Unit,
         ): PageIconViewHolder =
             PageIconViewHolder(
                 ItemPageIconBinding.inflate(LayoutInflater.from(context), parent, false),

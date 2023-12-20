@@ -13,7 +13,7 @@ import java.io.FileOutputStream
 object Downloader {
     fun download(context: Context, icon: Icon): Boolean {
         val result = OkHttpClientHolder.client.newCall(
-            Request.Builder().url(icon.url).build()
+            Request.Builder().url(icon.url).build(),
         ).execute()
         if (!result.isSuccessful) return false
         val data = result.body?.byteStream()?.readBytes() ?: return false

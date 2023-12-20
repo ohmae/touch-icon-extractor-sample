@@ -62,8 +62,8 @@ class IconDialog : DialogFragment() {
         binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
                 activity,
-                DividerItemDecoration.VERTICAL
-            )
+                DividerItemDecoration.VERTICAL,
+            ),
         )
         lifecycleScope.launch {
             settingsRepository.userSettingsRepository.flow.take(1).collectLatest {
@@ -80,8 +80,11 @@ class IconDialog : DialogFragment() {
         val activity = requireActivity()
         binding.transparentSwitch.isChecked = userSettings.showTransparentGrid
         val extractor =
-            if (userSettings.useExtension) ExtractorHolder.library
-            else ExtractorHolder.local
+            if (userSettings.useExtension) {
+                ExtractorHolder.library
+            } else {
+                ExtractorHolder.local
+            }
 
         val adapter = IconListAdapter(activity, userSettings.showTransparentGrid, ::onMoreClick)
         binding.transparentSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -163,15 +166,17 @@ class IconDialog : DialogFragment() {
                 launcher.launch()
             }
         }
-        lifecycleScope.launch(CoroutineExceptionHandler { _, _ ->
-            Toaster.show(context, R.string.toast_download_failed)
-        }) {
+        lifecycleScope.launch(
+            CoroutineExceptionHandler { _, _ ->
+                Toaster.show(context, R.string.toast_download_failed)
+            },
+        ) {
             withContext(Dispatchers.IO) {
                 Downloader.download(context, icon)
             }.let {
                 Toaster.show(
                     context,
-                    if (it) R.string.toast_download_saved else R.string.toast_download_failed
+                    if (it) R.string.toast_download_saved else R.string.toast_download_failed,
                 )
             }
         }

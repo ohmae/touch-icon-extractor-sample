@@ -12,11 +12,11 @@ import java.io.File
 import java.io.IOException
 
 class UserSettingsRepository(
-    context: Context
+    context: Context,
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.USER,
-        migrations = listOf(DataStructureMigration(context))
+        migrations = listOf(DataStructureMigration(context)),
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
 
@@ -46,7 +46,7 @@ class UserSettingsRepository(
     }
 
     private class DataStructureMigration(
-        private val context: Context
+        private val context: Context,
     ) : DataMigration<Preferences> {
         private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         override suspend fun shouldMigrate(currentData: Preferences): Boolean =
@@ -63,7 +63,8 @@ class UserSettingsRepository(
 
         override suspend fun cleanUp() {
             deleteSharedPreferences(
-                context, getDefaultSharedPreferencesName(context)
+                context,
+                getDefaultSharedPreferencesName(context),
             )
         }
 

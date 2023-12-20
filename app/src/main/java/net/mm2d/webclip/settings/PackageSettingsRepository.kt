@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.map
 import net.mm2d.webclip.BuildConfig
 
 class PackageSettingsRepository(
-    context: Context
+    context: Context,
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.PACKAGE,
         migrations = listOf(
             DataStructureMigration(),
             UpdateMigration(),
-        )
+        ),
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
 
@@ -26,7 +26,7 @@ class PackageSettingsRepository(
             PackageSetting(
                 versionAtInstall = it[VERSION_AT_INSTALL] ?: 0,
                 versionAtLastLaunched = it[VERSION_AT_LAST_LAUNCHED] ?: 0,
-                versionBeforeUpdate = it[VERSION_BEFORE_UPDATE] ?: 0
+                versionBeforeUpdate = it[VERSION_BEFORE_UPDATE] ?: 0,
             )
         }
 

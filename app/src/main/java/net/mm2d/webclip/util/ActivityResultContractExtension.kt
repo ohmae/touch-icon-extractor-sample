@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 fun <I, O> Fragment.registerForActivityResultWrapper(
     contract: ActivityResultContract<I, O>,
     input: I,
-    callback: ActivityResultCallback<O>
+    callback: ActivityResultCallback<O>,
 ): ActivityResultLauncherWrapper<I> =
     ActivityResultLauncherWrapper(registerForActivityResult(contract, callback), input)
 
 class ActivityResultLauncherWrapper<I>(
     private val launcher: ActivityResultLauncher<I>,
-    private val input: I
+    private val input: I,
 ) {
     fun launch() = launcher.launch(input)
 }

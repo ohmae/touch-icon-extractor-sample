@@ -13,9 +13,9 @@ import net.mm2d.touchicon.http.simple.SimpleHttpClientAdapterFactory
 
 object ExtractorHolder {
     val local = TouchIconExtractor(
-        httpClient = SimpleHttpClientAdapterFactory.create(WebViewCookieHandler)
+        httpClient = SimpleHttpClientAdapterFactory.create(WebViewCookieHandler),
     )
     val library = TouchIconExtractor(
-        httpClient = OkHttpAdapterFactory.create(OkHttpClientHolder.client)
+        httpClient = OkHttpAdapterFactory.create(OkHttpClientHolder.client),
     )
 }

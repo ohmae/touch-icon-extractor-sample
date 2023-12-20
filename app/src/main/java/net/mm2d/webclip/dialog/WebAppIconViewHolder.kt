@@ -25,7 +25,7 @@ class WebAppIconViewHolder(
 ) : IconViewHolder(binding.root) {
     override fun apply(icon: Icon, transparent: Boolean) {
         binding.icon.setBackgroundResource(
-            selectBackground(transparent)
+            selectBackground(transparent),
         )
         binding.root.tag = icon
         binding.sizes.text = icon.sizes
@@ -60,7 +60,7 @@ class WebAppIconViewHolder(
         fun create(
             context: Context,
             parent: ViewGroup,
-            onMoreClick: (View, Icon) -> Unit
+            onMoreClick: (View, Icon) -> Unit,
         ): WebAppIconViewHolder =
             WebAppIconViewHolder(
                 ItemWebAppIconBinding.inflate(LayoutInflater.from(context), parent, false),

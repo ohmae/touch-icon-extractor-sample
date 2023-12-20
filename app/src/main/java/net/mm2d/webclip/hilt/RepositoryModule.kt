@@ -15,6 +15,6 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun bindPreferenceRepository(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): SettingsRepository = SettingsRepository(context)
 }

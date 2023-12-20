@@ -168,8 +168,8 @@ class MainActivity : AppCompatActivity() {
             Intent.ACTION_SEARCH, Intent.ACTION_WEB_SEARCH ->
                 makeSearchUrl(
                     intent.getStringExtra(
-                        SearchManager.QUERY
-                    ) ?: ""
+                        SearchManager.QUERY,
+                    ) ?: "",
                 )
 
             else ->

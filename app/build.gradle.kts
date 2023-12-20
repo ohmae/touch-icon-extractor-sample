@@ -25,15 +25,15 @@ android {
         minSdk = 21
         targetSdk = 34
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
-        versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
-        base.archivesName.set("${applicationName}-${versionName}")
+        versionName = "$versionMajor.$versionMinor.$versionPatch"
+        base.archivesName.set("$applicationName-$versionName")
         vectorDrawables.useSupportLibrary = true
     }
     applicationVariants.all {
         if (buildType.name == "release") {
             outputs.all {
                 (this as BaseVariantOutputImpl).outputFileName =
-                    "${applicationName}-${versionName}.apk"
+                    "$applicationName-$versionName.apk"
             }
         }
     }
@@ -47,7 +47,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -72,6 +72,8 @@ android {
     }
 }
 
+val ktlint by configurations.creating
+
 dependencies {
     implementation("net.mm2d.touchicon:touchicon:0.9.7")
     implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.7")
@@ -86,20 +88,58 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.webkit:webkit:1.9.0")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("io.coil-kt:coil:2.5.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
-    debugImplementation("com.facebook.flipper:flipper:0.240.0")
+    debugImplementation("com.facebook.flipper:flipper:0.242.0")
     debugImplementation("com.facebook.soloader:soloader:0.10.5")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.240.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.240.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.242.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.242.0")
+
+    ktlint("com.pinterest.ktlint:ktlint-cli:1.0.1") {
+        attributes {
+            attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
+        }
+    }
 
     // for release
+}
+
+val ktlintCheck by tasks.registering(JavaExec::class) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    args(
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
+    isIgnoreExitValue = true
+}
+
+tasks.named<DefaultTask>("check") {
+    dependsOn(ktlintCheck)
+}
+
+tasks.register<JavaExec>("ktlintFormat") {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = "Check Kotlin code style and format"
+    classpath = ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
+    args(
+        "-F",
+        "**/src/**/*.kt",
+        "**.kts",
+        "!**/build/**",
+    )
+    isIgnoreExitValue = true
 }
 
 fun isStable(version: String): Boolean {
