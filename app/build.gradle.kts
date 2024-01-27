@@ -86,7 +86,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.webkit:webkit:1.9.0")
+    implementation("androidx.webkit:webkit:1.10.0")
     implementation("com.google.android.material:material:1.11.0")
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
@@ -95,10 +95,10 @@ dependencies {
     implementation("io.coil-kt:coil:2.5.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
-    debugImplementation("com.facebook.flipper:flipper:0.244.0")
+    debugImplementation("com.facebook.flipper:flipper:0.245.0")
     debugImplementation("com.facebook.soloader:soloader:0.11.0")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.244.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.244.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.245.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.245.0")
 
     // for release
 }
