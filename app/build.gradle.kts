@@ -79,8 +79,8 @@ dependencies {
 
     implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
@@ -95,10 +95,10 @@ dependencies {
     implementation("io.coil-kt:coil:2.5.0")
 
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
-    debugImplementation("com.facebook.flipper:flipper:0.245.0")
+    debugImplementation("com.facebook.flipper:flipper:0.247.0")
     debugImplementation("com.facebook.soloader:soloader:0.11.0")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.245.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.245.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.247.0")
+    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.247.0")
 
     // for release
 }
