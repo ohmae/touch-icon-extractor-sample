@@ -2,11 +2,11 @@ import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("dagger.hilt.android.plugin")
-    id("com.github.ben-manes.versions")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.gradleVersions)
 
     // for release
 }
@@ -51,15 +51,12 @@ android {
             )
         }
     }
-    kotlin {
-        jvmToolchain(11)
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
@@ -74,31 +71,28 @@ android {
 }
 
 dependencies {
-    implementation("net.mm2d.touchicon:touchicon:0.9.7")
-    implementation("net.mm2d.touchicon:touchicon-http-okhttp:0.9.7")
+    implementation(libs.touchicon)
+    implementation(libs.touchiconOkhttp)
 
-    implementation(kotlin("stdlib"))
-    implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.webkit:webkit:1.10.0")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("com.google.dagger:hilt-android:2.51")
-    kapt("com.google.dagger:hilt-android-compiler:2.51")
+    implementation(libs.kotlinStdlib)
+    implementation(libs.kotlinReflect)
+    implementation(libs.kotlinxCoroutinesAndroid)
+    implementation(libs.androidxAppCompat)
+    implementation(libs.androidxActivity)
+    implementation(libs.androidxConstraintLayout)
+    implementation(libs.androidxLifecycleViewModel)
+    implementation(libs.androidxPreference)
+    implementation(libs.androidxDatastorePreferences)
+    implementation(libs.androidxWebkit)
+    implementation(libs.material)
+    implementation(libs.hiltAndroid)
+    ksp(libs.hiltAndroidCompiler)
 
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("io.coil-kt:coil:2.6.0")
+    implementation(libs.okhttp)
+    implementation(libs.coil)
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.13")
-    debugImplementation("com.facebook.flipper:flipper:0.247.0")
-    debugImplementation("com.facebook.soloader:soloader:0.11.0")
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.247.0")
-    debugImplementation("com.facebook.flipper:flipper-leakcanary2-plugin:0.247.0")
+    debugImplementation(libs.leakcanary)
+    debugImplementation(libs.bundles.flipper)
 
     // for release
 }
