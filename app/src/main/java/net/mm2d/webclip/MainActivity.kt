@@ -92,9 +92,8 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent ?: return
         setIntent(intent)
         val url = extractUrlToLoad(intent)
         if (url.isNotEmpty()) {
