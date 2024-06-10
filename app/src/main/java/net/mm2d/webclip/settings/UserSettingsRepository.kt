@@ -68,9 +68,8 @@ class UserSettingsRepository(
             )
         }
 
-        private fun getDefaultSharedPreferencesName(context: Context): String {
-            return context.packageName + "_preferences"
-        }
+        private fun getDefaultSharedPreferencesName(context: Context): String =
+            context.packageName + "_preferences"
 
         private fun deleteSharedPreferences(context: Context, name: String) {
             if (Build.VERSION.SDK_INT >= 24) {

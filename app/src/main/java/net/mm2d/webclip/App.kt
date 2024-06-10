@@ -19,7 +19,9 @@ import net.mm2d.webclip.settings.SettingsRepository
 import javax.inject.Inject
 
 @HiltAndroidApp
-open class App : Application(), ImageLoaderFactory {
+open class App :
+    Application(),
+    ImageLoaderFactory {
     @Inject
     lateinit var settingsRepository: SettingsRepository
 
