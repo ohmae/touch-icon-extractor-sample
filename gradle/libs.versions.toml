@@ -1,7 +1,7 @@
 [versions]
-androidGradlePlugin = "8.5.0"
+androidGradlePlugin = "8.5.1"
 kotlin = "2.0.0"
-ksp = "2.0.0-1.0.22"
+ksp = "2.0.0-1.0.23"
 hilt = "2.51.1"
 gradleVersionsPlugin = "0.51.0"
 kotlinxCoroutines = "1.8.1"
@@ -10,7 +10,7 @@ androidxAppCompat = "1.7.0"
 androidxActivity = "1.9.0"
 androidxConstraintLayout = "2.1.4"
 androidxDatastore = "1.1.1"
-androidxLifecycle = "2.8.2"
+androidxLifecycle = "2.8.3"
 androidxPreference = "1.2.1"
 androidxWebkit = "1.11.0"
 material = "1.12.0"
@@ -22,7 +22,7 @@ leakcanary = "2.14"
 flipper = "0.250.0"
 soloader = "0.11.0"
 
-ktlint = "1.3.0"
+ktlint = "1.3.1"
 
 # for release
 
