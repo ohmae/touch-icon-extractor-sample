@@ -4,6 +4,7 @@
 /.idea/caches
 /.idea/copyright
 /.idea/deploymentTargetDropDown.xml
+/.idea/deploymentTargetSelector.xml
 /.idea/dictionaries
 /.idea/libraries
 /.idea/encodings.xml
@@ -19,6 +20,7 @@
 /.idea/sonarlint
 /.idea/appInsightsSettings.xml
 /.idea/migrations.xml
+/.idea/other.xml
 .DS_Store
 /build
 /captures
