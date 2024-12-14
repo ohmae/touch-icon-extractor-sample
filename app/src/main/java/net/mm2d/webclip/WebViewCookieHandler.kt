@@ -13,9 +13,14 @@ import net.mm2d.touchicon.http.simple.CookieHandler
 object WebViewCookieHandler : CookieHandler {
     private val cookieManager = CookieManager.getInstance()
 
-    override fun saveCookie(url: String, value: String) {
+    override fun saveCookie(
+        url: String,
+        value: String,
+    ) {
         cookieManager.setCookie(url, value)
     }
 
-    override fun loadCookie(url: String): String? = cookieManager.getCookie(url)
+    override fun loadCookie(
+        url: String,
+    ): String? = cookieManager.getCookie(url)
 }

@@ -5,7 +5,10 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 
 object Toaster {
-    fun show(context: Context, @StringRes resId: Int) {
+    fun show(
+        context: Context,
+        @StringRes resId: Int,
+    ) {
         Toast.makeText(context, resId, Toast.LENGTH_LONG).show()
     }
 }

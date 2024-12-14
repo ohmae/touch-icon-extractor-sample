@@ -52,7 +52,9 @@ class IconDialog : DialogFragment() {
     private val launcher =
         registerForActivityResultWrapper(RequestPermission(), PERMISSION, ::onPermissionResult)
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateDialog(
+        savedInstanceState: Bundle?,
+    ): Dialog {
         val activity = requireActivity()
         val arguments = requireArguments()
         val title = arguments.getString(KEY_TITLE)!!
@@ -76,7 +78,10 @@ class IconDialog : DialogFragment() {
             .create()
     }
 
-    private fun onUserSetting(binding: DialogIconBinding, userSettings: UserSettings) {
+    private fun onUserSetting(
+        binding: DialogIconBinding,
+        userSettings: UserSettings,
+    ) {
         val activity = requireActivity()
         binding.transparentSwitch.isChecked = userSettings.showTransparentGrid
         val extractor =
@@ -111,7 +116,10 @@ class IconDialog : DialogFragment() {
         }
     }
 
-    private fun onMoreClick(view: View, icon: Icon) {
+    private fun onMoreClick(
+        view: View,
+        icon: Icon,
+    ) {
         val context = requireContext()
         ListPopupWindow(context).also {
             it.setDropDownGravity(Gravity.END)
@@ -138,7 +146,9 @@ class IconDialog : DialogFragment() {
         }.show()
     }
 
-    private fun onPermissionResult(granted: Boolean) {
+    private fun onPermissionResult(
+        granted: Boolean,
+    ) {
         val activity = requireActivity()
         when {
             granted -> {
@@ -155,7 +165,9 @@ class IconDialog : DialogFragment() {
         }
     }
 
-    private fun download(icon: Icon) {
+    private fun download(
+        icon: Icon,
+    ) {
         val context = requireContext()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
             Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
@@ -182,7 +194,9 @@ class IconDialog : DialogFragment() {
         }
     }
 
-    private fun open(icon: Icon) {
+    private fun open(
+        icon: Icon,
+    ) {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(icon.url)))
         } catch (e: Exception) {

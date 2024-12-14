@@ -31,10 +31,13 @@ class PackageSettingsRepository(
         }
 
     private class DataStructureMigration : DataMigration<Preferences> {
-        override suspend fun shouldMigrate(currentData: Preferences): Boolean =
-            currentData[DATA_VERSION] != VERSION
+        override suspend fun shouldMigrate(
+            currentData: Preferences,
+        ): Boolean = currentData[DATA_VERSION] != VERSION
 
-        override suspend fun migrate(currentData: Preferences): Preferences =
+        override suspend fun migrate(
+            currentData: Preferences,
+        ): Preferences =
             currentData.edit { preferences ->
                 preferences[DATA_VERSION] = VERSION
                 if (preferences[VERSION_AT_INSTALL] == null) {
@@ -46,10 +49,13 @@ class PackageSettingsRepository(
     }
 
     private class UpdateMigration : DataMigration<Preferences> {
-        override suspend fun shouldMigrate(currentData: Preferences): Boolean =
-            currentData[VERSION_AT_LAST_LAUNCHED] != BuildConfig.VERSION_CODE
+        override suspend fun shouldMigrate(
+            currentData: Preferences,
+        ): Boolean = currentData[VERSION_AT_LAST_LAUNCHED] != BuildConfig.VERSION_CODE
 
-        override suspend fun migrate(currentData: Preferences): Preferences =
+        override suspend fun migrate(
+            currentData: Preferences,
+        ): Preferences =
             currentData.edit { preferences ->
                 preferences[VERSION_AT_LAST_LAUNCHED]?.let {
                     preferences[VERSION_BEFORE_UPDATE] = it

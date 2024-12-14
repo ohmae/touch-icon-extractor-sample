@@ -102,7 +102,9 @@ dependencies {
     // for release
 }
 
-fun isStable(version: String): Boolean {
+fun isStable(
+    version: String,
+): Boolean {
     val hasStableKeyword =
         listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()

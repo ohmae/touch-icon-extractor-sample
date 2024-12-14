@@ -29,7 +29,9 @@ class UserSettingsRepository(
             )
         }
 
-    suspend fun updateUseExtension(value: Boolean) {
+    suspend fun updateUseExtension(
+        value: Boolean,
+    ) {
         dataStore.updateData { preferences ->
             preferences.edit {
                 it[USE_EXTENSION] = value
@@ -37,7 +39,9 @@ class UserSettingsRepository(
         }
     }
 
-    suspend fun updateTrans(value: Boolean) {
+    suspend fun updateTrans(
+        value: Boolean,
+    ) {
         dataStore.updateData { preferences ->
             preferences.edit {
                 it[TRANSPARENT_GRID] = value
@@ -49,10 +53,13 @@ class UserSettingsRepository(
         private val context: Context,
     ) : DataMigration<Preferences> {
         private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        override suspend fun shouldMigrate(currentData: Preferences): Boolean =
-            currentData[DATA_VERSION] != VERSION
+        override suspend fun shouldMigrate(
+            currentData: Preferences,
+        ): Boolean = currentData[DATA_VERSION] != VERSION
 
-        override suspend fun migrate(currentData: Preferences): Preferences =
+        override suspend fun migrate(
+            currentData: Preferences,
+        ): Preferences =
             currentData.edit { preferences ->
                 preferences[DATA_VERSION] = VERSION
                 if (sharedPreferences.contains("USE_EXTENSION")) {
@@ -68,10 +75,14 @@ class UserSettingsRepository(
             )
         }
 
-        private fun getDefaultSharedPreferencesName(context: Context): String =
-            context.packageName + "_preferences"
+        private fun getDefaultSharedPreferencesName(
+            context: Context,
+        ): String = context.packageName + "_preferences"
 
-        private fun deleteSharedPreferences(context: Context, name: String) {
+        private fun deleteSharedPreferences(
+            context: Context,
+            name: String,
+        ) {
             if (Build.VERSION.SDK_INT >= 24) {
                 if (!context.deleteSharedPreferences(name)) {
                     throw IOException("Unable to delete SharedPreferences: $name")
@@ -85,12 +96,17 @@ class UserSettingsRepository(
             }
         }
 
-        private fun getSharedPrefsFile(context: Context, name: String): File {
+        private fun getSharedPrefsFile(
+            context: Context,
+            name: String,
+        ): File {
             val prefsDir = File(context.applicationInfo.dataDir, "shared_prefs")
             return File(prefsDir, "$name.xml")
         }
 
-        private fun getSharedPrefsBackup(prefsFile: File) = File(prefsFile.path + ".bak")
+        private fun getSharedPrefsBackup(
+            prefsFile: File,
+        ) = File(prefsFile.path + ".bak")
     }
 
     companion object {

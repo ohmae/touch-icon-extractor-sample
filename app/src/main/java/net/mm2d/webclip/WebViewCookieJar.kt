@@ -15,14 +15,19 @@ import okhttp3.HttpUrl
 object WebViewCookieJar : CookieJar {
     private val cookieManager = CookieManager.getInstance()
 
-    override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+    override fun saveFromResponse(
+        url: HttpUrl,
+        cookies: List<Cookie>,
+    ) {
         val urlString = url.toString()
         cookies.forEach {
             cookieManager.setCookie(urlString, it.toString())
         }
     }
 
-    override fun loadForRequest(url: HttpUrl): List<Cookie> =
+    override fun loadForRequest(
+        url: HttpUrl,
+    ): List<Cookie> =
         cookieManager.getCookie(url.toString()).let { cookie ->
             if (cookie.isNullOrEmpty()) {
                 emptyList()

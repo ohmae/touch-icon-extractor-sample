@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
-class SettingsRepository(context: Context) {
+class SettingsRepository(
+    context: Context,
+) {
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private val packageSettingsRepository = PackageSettingsRepository(context)
     val userSettingsRepository = UserSettingsRepository(context)

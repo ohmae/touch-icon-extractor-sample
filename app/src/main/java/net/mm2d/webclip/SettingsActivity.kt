@@ -17,7 +17,9 @@ import net.mm2d.webclip.databinding.ActivitySettingsBinding
 
 @AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val binding = ActivitySettingsBinding.inflate(layoutInflater)

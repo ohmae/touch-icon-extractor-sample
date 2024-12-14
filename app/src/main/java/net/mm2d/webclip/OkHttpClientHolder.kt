@@ -20,7 +20,9 @@ object OkHttpClientHolder {
             .build()
     }
 
-    fun addNetworkInterceptor(interceptor: Interceptor) {
+    fun addNetworkInterceptor(
+        interceptor: Interceptor,
+    ) {
         networkInterceptors.add(interceptor)
     }
 }

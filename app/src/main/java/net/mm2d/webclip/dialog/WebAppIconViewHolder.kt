@@ -23,7 +23,10 @@ class WebAppIconViewHolder(
     private val binding: ItemWebAppIconBinding,
     private val onMoreClick: (View, Icon) -> Unit,
 ) : IconViewHolder(binding.root) {
-    override fun apply(icon: Icon, transparent: Boolean) {
+    override fun apply(
+        icon: Icon,
+        transparent: Boolean,
+    ) {
         binding.icon.setBackgroundResource(
             selectBackground(transparent),
         )

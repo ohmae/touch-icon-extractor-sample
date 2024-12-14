@@ -22,29 +22,40 @@ class IconListAdapter(
         }
     private val list: MutableList<Icon> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, type: Int): IconViewHolder =
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        type: Int,
+    ): IconViewHolder =
         when (type) {
             0 -> PageIconViewHolder.create(context, parent, onMoreClick)
             1 -> WebAppIconViewHolder.create(context, parent, onMoreClick)
             else -> DomainIconViewHolder.create(context, parent, onMoreClick)
         }
 
-    fun add(icons: List<Icon>) {
+    fun add(
+        icons: List<Icon>,
+    ) {
         val positionStart = list.size
         list.addAll(icons)
         notifyItemRangeInserted(positionStart, icons.size)
     }
 
-    override fun getItemViewType(position: Int): Int = when (list[position]) {
-        is PageIcon -> 0
-        is WebAppIcon -> 1
-        else -> 2
-    }
+    override fun getItemViewType(
+        position: Int,
+    ): Int =
+        when (list[position]) {
+            is PageIcon -> 0
+            is WebAppIcon -> 1
+            else -> 2
+        }
 
     override fun getItemCount(): Int = list.size
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: IconViewHolder,
+        position: Int,
+    ) {
         holder.apply(list[position], showTransparentGrid)
     }
 }

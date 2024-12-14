@@ -25,11 +25,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var settingsRepository: SettingsRepository
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(
+        savedInstanceState: Bundle?,
+        rootKey: String?,
+    ) {
         addPreferencesFromResource(R.xml.preference)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         findPreference<Preference>("VERSION_NUMBER")?.summary = BuildConfig.VERSION_NAME
         findPreference<SwitchPreferenceCompat>("USE_EXTENSION")?.let { switch ->

@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+    ) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -94,7 +96,9 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
-    override fun onNewIntent(intent: Intent) {
+    override fun onNewIntent(
+        intent: Intent,
+    ) {
         super.onNewIntent(intent)
         setIntent(intent)
         val url = extractUrlToLoad(intent)
@@ -103,7 +107,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(
+        outState: Bundle,
+    ) {
         super.onSaveInstanceState(outState)
         binding.webView.saveState(outState)
     }
@@ -125,28 +131,45 @@ class MainActivity : AppCompatActivity() {
             it.domStorageEnabled = true
         }
         binding.webView.webChromeClient = object : WebChromeClient() {
-            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+            override fun onProgressChanged(
+                view: WebView?,
+                newProgress: Int,
+            ) {
                 binding.progressBar.progress = newProgress
             }
 
-            override fun onReceivedTitle(view: WebView?, title: String?) {
+            override fun onReceivedTitle(
+                view: WebView?,
+                title: String?,
+            ) {
                 binding.siteTitle.text = title
                 supportActionBar?.title = title
             }
         }
         binding.webView.webViewClient = object : WebViewClient() {
-            override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
+            override fun doUpdateVisitedHistory(
+                view: WebView,
+                url: String,
+                isReload: Boolean,
+            ) {
                 onBackPressedCallback.isEnabled = view.canGoBack()
             }
 
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            override fun onPageStarted(
+                view: WebView?,
+                url: String?,
+                favicon: Bitmap?,
+            ) {
                 binding.progressBar.progress = 0
                 binding.progressBar.visibility = View.VISIBLE
                 binding.siteUrl.text = url
                 supportActionBar?.subtitle = url
             }
 
-            override fun onPageFinished(view: WebView?, url: String?) {
+            override fun onPageFinished(
+                view: WebView?,
+                url: String?,
+            ) {
                 binding.progressBar.visibility = View.INVISIBLE
                 binding.siteUrl.text = url
                 binding.siteTitle.text = view?.title
@@ -165,25 +188,31 @@ class MainActivity : AppCompatActivity() {
         private const val SEARCH_URL = "https://www.bing.com/search"
         private const val SEARCH_QUERY_KEY = "q"
 
-        private fun extractUrlToLoad(intent: Intent): String = when (intent.action) {
-            Intent.ACTION_VIEW ->
-                intent.data?.toString() ?: ""
+        private fun extractUrlToLoad(
+            intent: Intent,
+        ): String =
+            when (intent.action) {
+                Intent.ACTION_VIEW ->
+                    intent.data?.toString() ?: ""
 
-            Intent.ACTION_SEARCH, Intent.ACTION_WEB_SEARCH ->
-                makeSearchUrl(
-                    intent.getStringExtra(
-                        SearchManager.QUERY,
-                    ) ?: "",
-                )
+                Intent.ACTION_SEARCH, Intent.ACTION_WEB_SEARCH ->
+                    makeSearchUrl(
+                        intent.getStringExtra(
+                            SearchManager.QUERY,
+                        ) ?: "",
+                    )
 
-            else ->
-                ""
-        }
+                else ->
+                    ""
+            }
 
-        private fun makeSearchUrl(query: String): String = Uri.parse(SEARCH_URL)
-            .buildUpon()
-            .appendQueryParameter(SEARCH_QUERY_KEY, query)
-            .build()
-            .toString()
+        private fun makeSearchUrl(
+            query: String,
+        ): String =
+            Uri.parse(SEARCH_URL)
+                .buildUpon()
+                .appendQueryParameter(SEARCH_QUERY_KEY, query)
+                .build()
+                .toString()
     }
 }

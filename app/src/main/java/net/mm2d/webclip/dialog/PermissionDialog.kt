@@ -18,7 +18,9 @@ import androidx.fragment.app.FragmentActivity
 import net.mm2d.webclip.R
 
 class PermissionDialog : DialogFragment() {
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateDialog(
+        savedInstanceState: Bundle?,
+    ): Dialog {
         val context = requireContext()
         return AlertDialog.Builder(context)
             .setTitle(R.string.dialog_permission_title)
@@ -30,7 +32,9 @@ class PermissionDialog : DialogFragment() {
             .create()
     }
 
-    private fun startAppInfo(context: Context) {
+    private fun startAppInfo(
+        context: Context,
+    ) {
         val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
             data = Uri.parse("package:" + context.packageName)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -41,7 +45,9 @@ class PermissionDialog : DialogFragment() {
     companion object {
         private const val TAG = "PermissionDialog"
 
-        fun show(activity: FragmentActivity) {
+        fun show(
+            activity: FragmentActivity,
+        ) {
             val manager = activity.supportFragmentManager
             if (manager.isStateSaved) return
             if (manager.findFragmentByTag(TAG) != null) return

@@ -12,11 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import net.mm2d.touchicon.Icon
 import net.mm2d.webclip.R
 
-abstract class IconViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    abstract fun apply(icon: Icon, transparent: Boolean)
+abstract class IconViewHolder(
+    itemView: View,
+) : RecyclerView.ViewHolder(itemView) {
+    abstract fun apply(
+        icon: Icon,
+        transparent: Boolean,
+    )
 
     companion object {
-        internal fun selectBackground(transparent: Boolean): Int =
-            if (transparent) R.drawable.bg_icon else 0
+        internal fun selectBackground(
+            transparent: Boolean,
+        ): Int = if (transparent) R.drawable.bg_icon else 0
     }
 }

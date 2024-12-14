@@ -39,8 +39,7 @@ enum class DataStoreFile {
     USER,
     ;
 
-    fun fileName(): String =
-        BuildConfig.APPLICATION_ID + "." + name.lowercase()
+    fun fileName(): String = BuildConfig.APPLICATION_ID + "." + name.lowercase()
 }
 
 fun preferences(
@@ -52,8 +51,9 @@ fun preferences(
         produceMigrations = { migrations },
     )
 
-fun Preferences.edit(editor: (preferences: MutablePreferences) -> Unit): Preferences =
-    toMutablePreferences().also(editor).toPreferences()
+fun Preferences.edit(
+    editor: (preferences: MutablePreferences) -> Unit,
+): Preferences = toMutablePreferences().also(editor).toPreferences()
 
 fun <K> K.intKey(): Preferences.Key<Int>
     where K : Enum<*>,
@@ -79,7 +79,9 @@ private const val SUFFIX_LONG = "_LONG"
 private const val SUFFIX_FLOAT = "_FLOAT"
 private const val SUFFIX_STRING = "_STRING"
 
-internal fun Enum<*>.checkSuffix(value: KClass<*>) {
+internal fun Enum<*>.checkSuffix(
+    value: KClass<*>,
+) {
     if (!BuildConfig.DEBUG) return
     when (value) {
         Boolean::class -> require(name.endsWith(SUFFIX_BOOLEAN)) {
