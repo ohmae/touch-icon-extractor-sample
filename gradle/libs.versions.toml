@@ -2,9 +2,9 @@
 androidGradlePlugin = "8.7.3"
 kotlin = "2.1.0"
 ksp = "2.1.0-1.0.29"
-hilt = "2.53.1"
+hilt = "2.54"
 gradleVersionsPlugin = "0.51.0"
-kotlinxCoroutines = "1.9.0"
+kotlinxCoroutines = "1.10.1"
 
 androidxAppCompat = "1.7.0"
 androidxActivity = "1.9.3"
@@ -16,6 +16,7 @@ androidxWebkit = "1.12.1"
 material = "1.12.0"
 okhttp = "4.12.0"
 touchicon = "0.9.9"
+coil = "3.0.4"
 
 # debug
 leakcanary = "2.14"
@@ -42,7 +43,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-coil = { group = "io.coil-kt", name = "coil", version = "2.7.0" }
+coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
+coilNetworkOkHttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 touchicon = { group = "net.mm2d.touchicon", name = "touchicon", version.ref = "touchicon" }
 touchiconOkhttp = { group = "net.mm2d.touchicon", name = "touchicon-http-okhttp", version.ref = "touchicon" }
 
@@ -52,6 +54,7 @@ flipper = { group = "com.facebook.flipper", name = "flipper", version.ref = "fli
 soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
 flipperNetwork = { group = "com.facebook.flipper", name = "flipper-network-plugin", version.ref = "flipper" }
 flipperLeakCanary2 = { group = "com.facebook.flipper", name = "flipper-leakcanary2-plugin", version.ref = "flipper" }
+okhttpLoggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
 ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint" }
 

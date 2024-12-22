@@ -40,13 +40,12 @@ class MenuAdapter(
         position: Int,
         convertView: View?,
         parent: ViewGroup,
-    ): View =
-        (
-            convertView?.let { ItemMenuBinding.bind(it) }
-                ?: ItemMenuBinding.inflate(inflater, parent, false)
-            ).also {
-                val item = getItem(position)
-                it.icon.setImageResource(item.first)
-                it.text.setText(item.second)
-            }.root
+    ): View {
+        val view = convertView?.let { ItemMenuBinding.bind(it) }
+            ?: ItemMenuBinding.inflate(inflater, parent, false)
+        val item = getItem(position)
+        view.icon.setImageResource(item.first)
+        view.text.setText(item.second)
+        return view.root
+    }
 }

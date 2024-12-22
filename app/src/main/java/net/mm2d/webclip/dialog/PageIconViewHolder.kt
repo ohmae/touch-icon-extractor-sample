@@ -12,8 +12,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import coil.imageLoader
-import coil.request.ImageRequest
+import coil3.asDrawable
+import coil3.imageLoader
+import coil3.request.ImageRequest
 import net.mm2d.touchicon.Icon
 import net.mm2d.webclip.databinding.ItemPageIconBinding
 
@@ -49,8 +50,8 @@ class PageIconViewHolder(
         val request = ImageRequest.Builder(context)
             .data(icon.url)
             .target {
-                binding.imageSize.text = "${it.intrinsicWidth}x${it.intrinsicHeight}"
-                binding.icon.setImageDrawable(it)
+                binding.imageSize.text = "${it.width}x${it.height}"
+                binding.icon.setImageDrawable(it.asDrawable(context.resources))
             }
             .build()
         context.imageLoader.enqueue(request)

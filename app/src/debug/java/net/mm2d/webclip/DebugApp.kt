@@ -25,6 +25,7 @@ import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
 import com.facebook.soloader.SoLoader
 import leakcanary.LeakCanary
+import okhttp3.logging.HttpLoggingInterceptor
 
 class DebugApp : App() {
     override fun initializeOverrideWhenDebug() {
@@ -72,5 +73,8 @@ class DebugApp : App() {
         client.start()
 
         OkHttpClientHolder.addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+        OkHttpClientHolder.addNetworkInterceptor(loggingInterceptor)
     }
 }

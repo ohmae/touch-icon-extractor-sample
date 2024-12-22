@@ -11,17 +11,17 @@ import android.app.Application
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
+import android.util.Log
 import android.webkit.WebView
-import coil.ImageLoader
-import coil.ImageLoaderFactory
+import coil3.ImageLoader
+import coil3.SingletonImageLoader
+import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import dagger.hilt.android.HiltAndroidApp
 import net.mm2d.webclip.settings.SettingsRepository
 import javax.inject.Inject
 
 @HiltAndroidApp
-open class App :
-    Application(),
-    ImageLoaderFactory {
+open class App : Application() {
     @Inject
     lateinit var settingsRepository: SettingsRepository
 
@@ -29,6 +29,12 @@ open class App :
         super.onCreate()
         initializeOverrideWhenDebug()
         WebView.setWebContentsDebuggingEnabled(true)
+        SingletonImageLoader.setSafe { context ->
+            Log.e("XXXX", "SingletonImageLoader")
+            ImageLoader.Builder(context)
+                .components { add(OkHttpNetworkFetcherFactory(callFactory = { OkHttpClientHolder.client })) }
+                .build()
+        }
     }
 
     protected open fun initializeOverrideWhenDebug() {
@@ -39,9 +45,4 @@ open class App :
         StrictMode.setThreadPolicy(ThreadPolicy.LAX)
         StrictMode.setVmPolicy(VmPolicy.LAX)
     }
-
-    override fun newImageLoader(): ImageLoader =
-        ImageLoader.Builder(this)
-            .okHttpClient { OkHttpClientHolder.client }
-            .build()
 }
