@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.gradleVersions)
+    alias(libs.plugins.dependencyGuard)
 
     // for release
 }
@@ -69,7 +70,6 @@ android {
     lint {
         abortOnError = true
     }
-    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
@@ -102,6 +102,10 @@ dependencies {
     debugImplementation(libs.okhttpLoggingInterceptor)
 
     // for release
+}
+
+dependencyGuard {
+    configuration("releaseRuntimeClasspath")
 }
 
 fun isStable(

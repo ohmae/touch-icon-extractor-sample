@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.gradleVersions) apply false
+    alias(libs.plugins.dependencyGuard) apply false
 
     // for release
 }
@@ -11,6 +12,7 @@ plugins {
 val ktlint: Configuration by configurations.creating
 
 dependencies {
+    @Suppress("UnstableApiUsage")
     ktlint(libs.ktlint) {
         attributes {
             attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
