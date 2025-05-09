@@ -19,13 +19,13 @@ val versionMinor = 4
 val versionPatch = 8
 
 android {
-    compileSdk = 35
+    compileSdk = 36
 
     namespace = "net.mm2d.webclip"
     defaultConfig {
         applicationId = "net.mm2d.webclip"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
         base.archivesName.set("$applicationName-$versionName")
@@ -54,14 +54,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlin {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_1_8
+            jvmTarget = JvmTarget.JVM_11
         }
-        jvmToolchain(17)
     }
     buildFeatures {
         buildConfig = true
@@ -76,6 +76,8 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring(libs.desugarJdkLibs)
+
     implementation(libs.touchicon)
     implementation(libs.touchiconOkhttp)
 
