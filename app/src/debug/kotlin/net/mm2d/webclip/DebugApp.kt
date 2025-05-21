@@ -11,26 +11,12 @@ import android.os.Build
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.os.StrictMode.VmPolicy
-import com.facebook.flipper.android.AndroidFlipperClient
-import com.facebook.flipper.android.utils.FlipperUtils
-import com.facebook.flipper.plugins.crashreporter.CrashReporterPlugin
-import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin
-import com.facebook.flipper.plugins.inspector.DescriptorMapping
-import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
-import com.facebook.flipper.plugins.leakcanary2.FlipperLeakEventListener
-import com.facebook.flipper.plugins.leakcanary2.LeakCanary2FlipperPlugin
-import com.facebook.flipper.plugins.navigation.NavigationFlipperPlugin
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
-import com.facebook.flipper.plugins.sharedpreferences.SharedPreferencesFlipperPlugin
-import com.facebook.soloader.SoLoader
-import leakcanary.LeakCanary
 import okhttp3.logging.HttpLoggingInterceptor
 
 class DebugApp : App() {
     override fun initializeOverrideWhenDebug() {
         setUpStrictMode()
-        setUpFlipper()
+        setUpOkHttp()
     }
 
     private fun setUpStrictMode() {
@@ -55,26 +41,9 @@ class DebugApp : App() {
             }
         }
 
-    private fun setUpFlipper() {
-        LeakCanary.config = LeakCanary.config.run {
-            copy(eventListeners = eventListeners + FlipperLeakEventListener())
-        }
-        SoLoader.init(this, false)
-        if (!FlipperUtils.shouldEnableFlipper(this)) return
-        val client = AndroidFlipperClient.getInstance(this)
-        client.addPlugin(InspectorFlipperPlugin(this, DescriptorMapping.withDefaults()))
-        client.addPlugin(NavigationFlipperPlugin.getInstance())
-        val networkFlipperPlugin = NetworkFlipperPlugin()
-        client.addPlugin(networkFlipperPlugin)
-        client.addPlugin(DatabasesFlipperPlugin(this))
-        client.addPlugin(SharedPreferencesFlipperPlugin(this))
-        client.addPlugin(LeakCanary2FlipperPlugin())
-        client.addPlugin(CrashReporterPlugin.getInstance())
-        client.start()
-
-        OkHttpClientHolder.addNetworkInterceptor(FlipperOkhttpInterceptor(networkFlipperPlugin))
+    private fun setUpOkHttp() {
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClientHolder.addNetworkInterceptor(loggingInterceptor)
     }
 }

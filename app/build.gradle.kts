@@ -100,7 +100,6 @@ dependencies {
     implementation(libs.coilNetworkOkHttp)
 
     debugImplementation(libs.leakcanary)
-    debugImplementation(libs.bundles.flipper)
     debugImplementation(libs.okhttpLoggingInterceptor)
 
     // for release
