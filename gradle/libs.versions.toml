@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.11.0"
+androidGradlePlugin = "8.11.1"
 desugarJdkLibs = "2.1.5"
 kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2"
@@ -16,7 +16,7 @@ androidxLifecycle = "2.9.1"
 androidxPreference = "1.2.1"
 androidxWebkit = "1.14.0"
 material = "1.12.0"
-okhttp = "4.12.0"
+okhttp = "5.1.0"
 touchicon = "0.9.10"
 coil = "3.2.0"
 
