@@ -24,7 +24,7 @@ android {
     namespace = "net.mm2d.webclip"
     defaultConfig {
         applicationId = "net.mm2d.webclip"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 36
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
@@ -96,7 +96,6 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coilNetworkOkHttp)
 
-    debugImplementation(libs.leakcanary)
     debugImplementation(libs.okhttpLoggingInterceptor)
 
     // for release

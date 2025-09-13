@@ -2,9 +2,9 @@ package net.mm2d.webclip.util
 
 import android.content.ContentValues
 import android.content.Context
-import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import androidx.core.net.toUri
 import net.mm2d.touchicon.Icon
 import net.mm2d.webclip.OkHttpClientHolder
 import okhttp3.Request
@@ -26,7 +26,7 @@ object Downloader {
         } else {
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         }
-        val fileName = Uri.parse(icon.url).let { uri ->
+        val fileName = icon.url.toUri().let { uri ->
             (uri.host + uri.path).replace("/", "_")
         }
         val values = ContentValues().apply {

@@ -1,22 +1,18 @@
 package net.mm2d.webclip.settings
 
 import android.content.Context
-import android.os.Build
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.io.File
-import java.io.IOException
 
 class UserSettingsRepository(
     context: Context,
 ) {
     private val Context.dataStoreField: DataStore<Preferences> by preferences(
         file = DataStoreFile.USER,
-        migrations = listOf(DataStructureMigration(context)),
+        migrations = listOf(DataStructureMigration()),
     )
     private val dataStore: DataStore<Preferences> = context.dataStoreField
 
@@ -49,10 +45,7 @@ class UserSettingsRepository(
         }
     }
 
-    private class DataStructureMigration(
-        private val context: Context,
-    ) : DataMigration<Preferences> {
-        private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private class DataStructureMigration : DataMigration<Preferences> {
         override suspend fun shouldMigrate(
             currentData: Preferences,
         ): Boolean = currentData[DATA_VERSION] != VERSION
@@ -62,51 +55,9 @@ class UserSettingsRepository(
         ): Preferences =
             currentData.edit { preferences ->
                 preferences[DATA_VERSION] = VERSION
-                if (sharedPreferences.contains("USE_EXTENSION")) {
-                    preferences[USE_EXTENSION] =
-                        sharedPreferences.getBoolean("USE_EXTENSION", false)
-                }
             }
 
-        override suspend fun cleanUp() {
-            deleteSharedPreferences(
-                context,
-                getDefaultSharedPreferencesName(context),
-            )
-        }
-
-        private fun getDefaultSharedPreferencesName(
-            context: Context,
-        ): String = context.packageName + "_preferences"
-
-        private fun deleteSharedPreferences(
-            context: Context,
-            name: String,
-        ) {
-            if (Build.VERSION.SDK_INT >= 24) {
-                if (!context.deleteSharedPreferences(name)) {
-                    throw IOException("Unable to delete SharedPreferences: $name")
-                }
-            } else {
-                val prefsFile = getSharedPrefsFile(context, name)
-                val prefsBackup = getSharedPrefsBackup(prefsFile)
-
-                prefsFile.delete()
-                prefsBackup.delete()
-            }
-        }
-
-        private fun getSharedPrefsFile(
-            context: Context,
-            name: String,
-        ): File {
-            val prefsDir = File(context.applicationInfo.dataDir, "shared_prefs")
-            return File(prefsDir, "$name.xml")
-        }
-
-        private fun getSharedPrefsBackup(
-            prefsFile: File,
-        ) = File(prefsFile.path + ".bak")
+        override suspend fun cleanUp() = Unit
     }
 
     companion object {

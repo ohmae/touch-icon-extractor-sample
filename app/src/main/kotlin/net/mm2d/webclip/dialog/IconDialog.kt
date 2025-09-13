@@ -10,7 +10,6 @@ package net.mm2d.webclip.dialog
 import android.Manifest
 import android.app.Dialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -20,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
@@ -169,9 +169,7 @@ class IconDialog : DialogFragment() {
         icon: Icon,
     ) {
         val context = requireContext()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
-        ) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             if (PermissionChecker.checkSelfPermission(context, PERMISSION) !=
                 PermissionChecker.PERMISSION_GRANTED
             ) {
@@ -198,7 +196,7 @@ class IconDialog : DialogFragment() {
         icon: Icon,
     ) {
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(icon.url)))
+            startActivity(Intent(Intent.ACTION_VIEW, icon.url.toUri()))
         } catch (e: Exception) {
             val context = requireContext()
             Toaster.show(context, R.string.toast_failed_to_open)

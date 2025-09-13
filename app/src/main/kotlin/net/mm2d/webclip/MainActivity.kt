@@ -11,7 +11,6 @@ import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.webkit.URLUtil
@@ -20,6 +19,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         private fun makeSearchUrl(
             query: String,
         ): String =
-            Uri.parse(SEARCH_URL)
+            SEARCH_URL.toUri()
                 .buildUpon()
                 .appendQueryParameter(SEARCH_QUERY_KEY, query)
                 .build()

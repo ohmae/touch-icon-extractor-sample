@@ -19,9 +19,6 @@ okhttp = "5.1.0"
 touchicon = "0.9.11"
 coil = "3.3.0"
 
-# debug
-leakcanary = "2.14"
-
 ktlint = "1.7.1"
 
 # for release
@@ -48,7 +45,6 @@ touchicon = { group = "net.mm2d.touchicon", name = "touchicon", version.ref = "t
 touchiconOkhttp = { group = "net.mm2d.touchicon", name = "touchicon-http-okhttp", version.ref = "touchicon" }
 
 # debug
-leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 okhttpLoggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
 ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint" }
