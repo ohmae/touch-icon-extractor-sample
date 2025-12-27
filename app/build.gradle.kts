@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.hiltAndroid)
     ksp(libs.hiltAndroidCompiler)
+    ksp(libs.kotlinMetadataJvm)
 
     implementation(libs.okhttp)
     implementation(libs.coil)
