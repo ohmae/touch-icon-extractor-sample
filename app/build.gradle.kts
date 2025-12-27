@@ -16,7 +16,7 @@ plugins {
 val applicationName = "WebClip"
 val versionMajor = 0
 val versionMinor = 5
-val versionPatch = 2
+val versionPatch = 3
 
 android {
     compileSdk = 36
