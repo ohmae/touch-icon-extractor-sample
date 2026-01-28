@@ -1,12 +1,10 @@
 import com.android.build.api.variant.impl.VariantOutputImpl
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.gradleVersions)
     alias(libs.plugins.dependencyGuard)
 
     // for release
@@ -102,17 +100,4 @@ dependencies {
 
 dependencyGuard {
     configuration("releaseRuntimeClasspath")
-}
-
-fun isStable(
-    version: String,
-): Boolean {
-    val hasStableKeyword =
-        listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
-    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-    return hasStableKeyword || regex.matches(version)
-}
-
-tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
-    rejectVersionIf { !isStable(candidate.version) && isStable(currentVersion) }
 }
