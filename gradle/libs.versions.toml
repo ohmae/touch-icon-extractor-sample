@@ -17,7 +17,7 @@ androidxWebkit = "1.15.0"
 material = "1.13.0"
 okhttp = "5.3.2"
 touchicon = "0.9.11"
-coil = "3.3.0"
+coil = "3.4.0"
 
 ktlint = "1.8.0"
 
