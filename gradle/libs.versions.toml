@@ -31,11 +31,11 @@ kotlinMetadataJvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jv
 kotlinxCoroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 
 androidxAppCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
-androidxActivity = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
+androidxActivity = { group = "androidx.activity", name = "activity", version.ref = "androidxActivity" }
 androidxConstraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
 androidxDatastorePreferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDatastore" }
-androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
-androidxPreference = { group = "androidx.preference", name = "preference-ktx", version.ref = "androidxPreference" }
+androidxLifecycleViewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidxLifecycle" }
+androidxPreference = { group = "androidx.preference", name = "preference", version.ref = "androidxPreference" }
 androidxWebkit = { group = "androidx.webkit", name = "webkit", version.ref = "androidxWebkit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
