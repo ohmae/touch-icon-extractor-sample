@@ -43,6 +43,7 @@ hiltAndroidCompiler = { group = "com.google.dagger", name = "hilt-android-compil
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
 coilNetworkOkHttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+coilNetowrkCacheControl = { group = "io.coil-kt.coil3", name = "coil-network-cache-control", version.ref = "coil" }
 touchicon = { group = "net.mm2d.touchicon", name = "touchicon", version.ref = "touchicon" }
 touchiconOkhttp = { group = "net.mm2d.touchicon", name = "touchicon-http-okhttp", version.ref = "touchicon" }
 

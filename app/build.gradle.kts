@@ -92,6 +92,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.coil)
     implementation(libs.coilNetworkOkHttp)
+    implementation(libs.coilNetowrkCacheControl)
 
     debugImplementation(libs.okhttpLoggingInterceptor)
 
