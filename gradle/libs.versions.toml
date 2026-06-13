@@ -15,9 +15,9 @@ androidxLifecycle = "2.10.0"
 androidxPreference = "1.2.1"
 androidxWebkit = "1.16.0"
 material = "1.14.0"
-okhttp = "5.3.2"
+okhttp = "5.4.0"
 touchicon = "0.9.12"
-coil = "3.4.0"
+coil = "3.5.0"
 
 ktlint = "1.8.0"
 
