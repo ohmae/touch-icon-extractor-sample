@@ -16,9 +16,11 @@ val versionMinor = 5
 val versionPatch = 4
 
 android {
-    compileSdk = 36
-
     namespace = "net.mm2d.webclip"
+    compileSdk {
+        version = release(37)
+    }
+
     defaultConfig {
         applicationId = "net.mm2d.webclip"
         minSdk = 26
