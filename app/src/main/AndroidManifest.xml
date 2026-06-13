@@ -62,5 +62,12 @@
             android:name=".SettingsActivity"
             android:label="@string/settings"
             />
+
+        <provider
+            android:name="androidx.webkit.DropDataContentProvider"
+            android:authorities="${applicationId}.DropDataProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            />
     </application>
 </manifest>
