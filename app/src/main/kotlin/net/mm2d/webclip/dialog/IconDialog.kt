@@ -20,7 +20,6 @@ import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +40,7 @@ import net.mm2d.webclip.settings.SettingsRepository
 import net.mm2d.webclip.settings.UserSettings
 import net.mm2d.webclip.util.Downloader
 import net.mm2d.webclip.util.Toaster
+import net.mm2d.webclip.util.buildBundle
 import net.mm2d.webclip.util.registerForActivityResultWrapper
 import javax.inject.Inject
 
@@ -197,7 +197,7 @@ class IconDialog : DialogFragment() {
     ) {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, icon.url.toUri()))
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             val context = requireContext()
             Toaster.show(context, R.string.toast_failed_to_open)
         }
@@ -214,10 +214,10 @@ class IconDialog : DialogFragment() {
             siteUrl: String,
         ) {
             IconDialog().also {
-                it.arguments = bundleOf(
-                    KEY_TITLE to title,
-                    KEY_SITE_URL to siteUrl,
-                )
+                it.arguments = buildBundle {
+                    putString(KEY_TITLE, title)
+                    putString(KEY_SITE_URL, siteUrl)
+                }
             }.show(activity.supportFragmentManager, "")
         }
     }
