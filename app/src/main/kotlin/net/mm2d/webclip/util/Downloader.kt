@@ -19,7 +19,7 @@ object Downloader {
             Request.Builder().url(icon.url).build(),
         ).execute()
         if (!result.isSuccessful) return false
-        val data = result.body?.byteStream()?.readBytes() ?: return false
+        val data = result.body.byteStream().readBytes()
 
         val collection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
