@@ -1,5 +1,6 @@
 [versions]
 androidGradlePlugin = "9.3.0"
+desugarJdkLibs = "2.1.5"
 kotlin = "2.4.10"
 ksp = "2.3.10"
 hilt = "2.60.1"
@@ -26,6 +27,8 @@ ktlint = "1.8.0"
 [libraries]
 # classPath
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 
 kotlinMetadataJvm = { group = "org.jetbrains.kotlin", name = "kotlin-metadata-jvm", version.ref = "kotlin" }
 kotlinxCoroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
