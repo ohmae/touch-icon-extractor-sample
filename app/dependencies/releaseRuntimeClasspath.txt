@@ -22,7 +22,7 @@ androidx.core:core-viewtree:1.0.0
 androidx.core:core:1.18.0
 androidx.cursoradapter:cursoradapter:1.0.0
 androidx.customview:customview:1.2.0
-androidx.databinding:viewbinding:9.3.1
+androidx.databinding:viewbinding:9.3.2
 androidx.datastore:datastore-android:1.2.1
 androidx.datastore:datastore-core-android:1.2.1
 androidx.datastore:datastore-core-okio-jvm:1.2.1
@@ -89,10 +89,10 @@ com.google.dagger:hilt-android:2.60.1
 com.google.dagger:hilt-core:2.60.1
 com.google.errorprone:error_prone_annotations:2.15.0
 com.google.guava:listenablefuture:1.0
-com.squareup.okhttp3:okhttp-android:5.4.0
-com.squareup.okhttp3:okhttp:5.4.0
-com.squareup.okio:okio-jvm:3.17.0
-com.squareup.okio:okio:3.17.0
+com.squareup.okhttp3:okhttp-android:5.5.0
+com.squareup.okhttp3:okhttp:5.5.0
+com.squareup.okio:okio-jvm:3.18.1
+com.squareup.okio:okio:3.18.1
 io.coil-kt.coil3:coil-android:3.5.0
 io.coil-kt.coil3:coil-core-android:3.5.0
 io.coil-kt.coil3:coil-core:3.5.0
