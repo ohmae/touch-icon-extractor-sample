@@ -22,7 +22,7 @@ androidx.core:core-viewtree:1.0.0
 androidx.core:core:1.18.0
 androidx.cursoradapter:cursoradapter:1.0.0
 androidx.customview:customview:1.2.0
-androidx.databinding:viewbinding:9.4.0
+androidx.databinding:viewbinding:9.4.1
 androidx.datastore:datastore-android:1.2.1
 androidx.datastore:datastore-core-android:1.2.1
 androidx.datastore:datastore-core-okio-jvm:1.2.1
