@@ -13,7 +13,7 @@ plugins {
 val applicationName = "WebClip"
 val versionMajor = 0
 val versionMinor = 5
-val versionPatch = 5
+val versionPatch = 6
 
 android {
     namespace = "net.mm2d.webclip"
@@ -24,7 +24,7 @@ android {
     defaultConfig {
         applicationId = "net.mm2d.webclip"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
         base.archivesName.set("$applicationName-$versionName")
