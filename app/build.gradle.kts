@@ -18,7 +18,9 @@ val versionPatch = 6
 android {
     namespace = "net.mm2d.webclip"
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 2
+        }
     }
 
     defaultConfig {
